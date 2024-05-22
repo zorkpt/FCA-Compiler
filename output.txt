@@ -1,0 +1,103 @@
+Tokens gerados:
+LexToken(ESCREVER,'ESCREVER',1,0)
+LexToken(PARENTESES_ESQ,'(',1,8)
+LexToken(IDENTIFICADOR,'valor',1,9)
+LexToken(PARENTESES_DIR,')',1,14)
+LexToken(PONTO_E_VIRGULA,';',1,15)
+LexToken(ESCREVER,'ESCREVER',2,54)
+LexToken(PARENTESES_ESQ,'(',2,62)
+LexToken(NUMERO,365,2,63)
+LexToken(OPERADOR_ARITMETICO,'*',2,67)
+LexToken(NUMERO,2,2,69)
+LexToken(PARENTESES_DIR,')',2,70)
+LexToken(PONTO_E_VIRGULA,';',2,71)
+LexToken(ESCREVER,'ESCREVER',3,80)
+LexToken(PARENTESES_ESQ,'(',3,88)
+LexToken(STRING,'Ola Mundo',3,89)
+LexToken(PARENTESES_DIR,')',3,100)
+LexToken(PONTO_E_VIRGULA,';',3,101)
+LexToken(IDENTIFICADOR,'curso',4,118)
+LexToken(ATRIBUICAO,'=',4,124)
+LexToken(STRING,'ESI',4,126)
+LexToken(PONTO_E_VIRGULA,';',4,131)
+LexToken(ESCREVER,'ESCREVER',5,133)
+LexToken(PARENTESES_ESQ,'(',5,141)
+LexToken(STRING,'Olá, ',5,142)
+LexToken(OPERADOR_CONCAT,'<>',5,149)
+LexToken(IDENTIFICADOR,'curso',5,152)
+LexToken(PARENTESES_DIR,')',5,157)
+LexToken(PONTO_E_VIRGULA,';',5,158)
+IdentifierNode: <nodes.IdentifierNode object at 0x100a2a360>
+WriteNode criado: <nodes.WriteNode object at 0x100a2a1b0>
+Statement: <nodes.WriteNode object at 0x100a2a1b0>
+Statements: [<nodes.WriteNode object at 0x100a2a1b0>]
+NumberNode: <nodes.NumberNode object at 0x100a2a420>
+NumberNode: <nodes.NumberNode object at 0x100a2a510>
+Construindo BinOpNode: * com expressões <nodes.NumberNode object at 0x100a2a420> e <nodes.NumberNode object at 0x100a2a510>
+WriteNode criado: <nodes.WriteNode object at 0x100a0a2a0>
+Statement: <nodes.WriteNode object at 0x100a0a2a0>
+Statements: [<nodes.WriteNode object at 0x100a2a1b0>, <nodes.WriteNode object at 0x100a0a2a0>]
+StringNode: <nodes.StringNode object at 0x100836930>
+WriteNode criado: <nodes.WriteNode object at 0x100a2a3c0>
+Statement: <nodes.WriteNode object at 0x100a2a3c0>
+Statements: [<nodes.WriteNode object at 0x100a2a1b0>, <nodes.WriteNode object at 0x100a0a2a0>, <nodes.WriteNode object at 0x100a2a3c0>]
+StringNode: <nodes.StringNode object at 0x100a2a390>
+AssignNode criado: <nodes.AssignNode object at 0x100a2a450>
+Statement: <nodes.AssignNode object at 0x100a2a450>
+Statements: [<nodes.WriteNode object at 0x100a2a1b0>, <nodes.WriteNode object at 0x100a0a2a0>, <nodes.WriteNode object at 0x100a2a3c0>, <nodes.AssignNode object at 0x100a2a450>]
+StringNode: <nodes.StringNode object at 0x100a2a660>
+IdentifierNode: <nodes.IdentifierNode object at 0x100a2a630>
+Construindo BinOpNode: <> com expressões <nodes.StringNode object at 0x100a2a660> e <nodes.IdentifierNode object at 0x100a2a630>
+WriteNode criado: <nodes.WriteNode object at 0x100a2a690>
+Statement: <nodes.WriteNode object at 0x100a2a690>
+Statements: [<nodes.WriteNode object at 0x100a2a1b0>, <nodes.WriteNode object at 0x100a0a2a0>, <nodes.WriteNode object at 0x100a2a3c0>, <nodes.AssignNode object at 0x100a2a450>, <nodes.WriteNode object at 0x100a2a690>]
+ProgramNode criado: <nodes.ProgramNode object at 0x100a2a5a0>
+
+AST gerada:
+Parâmetros: ['c']
+IdentifierNode: <nodes.IdentifierNode object at 0x100a2aa20>
+NumberNode: <nodes.NumberNode object at 0x100a2ab40>
+Construindo BinOpNode: + com expressões <nodes.IdentifierNode object at 0x100a2aa20> e <nodes.NumberNode object at 0x100a2ab40>
+AssignNode criado: <nodes.AssignNode object at 0x100a2aa80>
+Statement: <nodes.AssignNode object at 0x100a2aa80>
+Statements: [<nodes.AssignNode object at 0x100a2aa80>]
+IdentifierNode: <nodes.IdentifierNode object at 0x100a2ab70>
+NumberNode: <nodes.NumberNode object at 0x100a2acc0>
+Construindo BinOpNode: + com expressões <nodes.IdentifierNode object at 0x100a2ab70> e <nodes.NumberNode object at 0x100a2acc0>
+Expressão statement: <nodes.BinOpNode object at 0x100a2ac30>
+Statement: <nodes.BinOpNode object at 0x100a2ac30>
+Statements: [<nodes.AssignNode object at 0x100a2aa80>, <nodes.BinOpNode object at 0x100a2ac30>]
+Definindo função multiline: soma2 com parâmetros ['c'] e corpo [<nodes.AssignNode object at 0x100a2aa80>, <nodes.BinOpNode object at 0x100a2ac30>]
+Statement: <nodes.FunctionDefNode object at 0x100a2ac90>
+Statements: [<nodes.FunctionDefNode object at 0x100a2ac90>]
+ProgramNode criado: <nodes.ProgramNode object at 0x100a2ac60>
+AST gerada:
+ProgramNode:
+  FunctionDefNode: soma2 (c)
+    AssignNode: c
+      BinOpNode: +
+        IdentifierNode: c
+        NumberNode: 1
+    BinOpNode: +
+      IdentifierNode: c
+      NumberNode: 1
+ProgramNode:
+  WriteNode:
+    IdentifierNode: valor
+  WriteNode:
+    BinOpNode: *
+      NumberNode: 365
+      NumberNode: 2
+  WriteNode:
+    StringNode: Ola Mundo
+  AssignNode: curso
+    StringNode: ESI
+  WriteNode:
+    BinOpNode: <>
+      StringNode: Olá, 
+      IdentifierNode: curso
+
+Interpretação do código:
+Erro na interpretação: Variável não definida: valor
+
+Código C gerado:

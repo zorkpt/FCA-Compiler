@@ -1,0 +1,78 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COLCHETES_DIR
+    COLCHETES_ESQ
+    OPERADOR_LOGICO
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement_list
+Rule 2     statement_list -> statement
+Rule 3     statement_list -> statement_list statement
+Rule 4     statement -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parameters PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA
+Rule 5     statement -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMBER PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA
+Rule 6     statement -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parameters PARENTESES_DIR DOIS_PONTOS statement_list FIM
+Rule 7     optional_statement_list -> statement_list
+Rule 8     optional_statement_list -> empty
+Rule 9     empty -> <empty>
+Rule 10    parameters -> parameters VIRGULA IDENTIFICADOR
+Rule 11    parameters -> IDENTIFICADOR
+Rule 12    parameters -> <empty>
+Rule 13    expression -> IDENTIFICADOR PARENTESES_ESQ arguments PARENTESES_DIR
+Rule 14    arguments -> arguments VIRGULA expression
+Rule 15    arguments -> expression
+Rule 16    arguments -> <empty>
+Rule 17    statement -> expression PONTO_E_VIRGULA
+Rule 18    statements -> statement
+Rule 19    statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA
+Rule 20    statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA
+Rule 21    expression -> expression OPERADOR_ARITMETICO expression
+Rule 22    expression -> expression OPERADOR_CONCAT expression
+Rule 23    expression -> PARENTESES_ESQ expression PARENTESES_DIR
+Rule 24    expression -> NUMERO
+Rule 25    expression -> IDENTIFICADOR
+Rule 26    expression -> STRING
+Rule 27    expression -> INTERPOLATED_STRING
+Rule 28    expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR
+Rule 29    expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+
+Terminals, with rules where they appear
+
+ALEATORIO            : 29
+ATRIBUICAO           : 20
+COLCHETES_DIR        : 
+COLCHETES_ESQ        : 
+DOIS_PONTOS          : 4 5 6
+ENTRADA              : 28
+ESCREVER             : 19
+FIM                  : 6
+FUNCAO               : 4 5 6
+IDENTIFICADOR        : 4 5 6 10 11 13 20 25
+INTERPOLATED_STRING  : 27
+NUMERO               : 24
+OPERADOR_ARITMETICO  : 21
+OPERADOR_CONCAT      : 22
+OPERADOR_LOGICO      : 
+PARENTESES_DIR       : 4 5 6 13 19 23 28 29
+PARENTESES_ESQ       : 4 5 6 13 19 23 28 29
+PONTO_E_VIRGULA      : 4 5 17 19 20
+STRING               : 26
+VIRGULA              : 4 5 10 14
+error                : 
+
+Nonterminals, with rules where they appear
+
+NUMBER               : 5
+arguments            : 13 14
+empty                : 8
+expression           : 4 5 14 15 17 19 20 21 21 22 22 23 29
+optional_statement_list : 
+parameters           : 4 6 10
+program              : 0
+statement            : 2 3 18
+statement_list       : 1 3 6 7
+statements           : 
+
