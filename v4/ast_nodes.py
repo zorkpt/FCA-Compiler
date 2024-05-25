@@ -1,17 +1,18 @@
 # Definição das classes da AST com métodos de impressão
+
+# Classes Base
+
 class ASTNode:
     def __init__(self, node_type):
         self.node_type = node_type
 
     def __repr__(self):
         return f"{self.node_type}()"
-# FunctionNode
-# |
-# +-- Nome da Função: IDENTIFICADOR
-# |
-# +-- Parâmetros: parameters (ou [])
-# |
-# +-- Corpo: [ReturnNode(expression)]
+
+
+# FIM CATEGORIA
+
+# Estrutura do Programa
 
 class ProgramNode(ASTNode):
     def __init__(self, statements):
@@ -21,6 +22,10 @@ class ProgramNode(ASTNode):
     def __repr__(self):
         return f"{self.node_type}({self.statements})"
 
+
+# FIM CATEGORIA
+
+# Declarações (Statements)
 
 class StatementNode(ASTNode):
     def __init__(self, statement_type):
@@ -49,6 +54,61 @@ class AssignNode(StatementNode):
     def __repr__(self):
         return f"{self.statement_type}({self.identifier}, {self.expression})"
 
+
+class ReturnNode(StatementNode):
+    def __init__(self, expression):
+        super().__init__('ReturnNode')
+        self.expression = expression
+
+    def __repr__(self):
+        return f"{self.statement_type}({self.expression})"
+
+
+class FunctionNode(StatementNode):
+    def __init__(self, name, parameters, body):
+        super().__init__('FunctionNode')
+        self.name = name
+        self.parameters = parameters
+        self.body = body
+
+    def __repr__(self):
+        return f"{self.statement_type}({self.name}, {self.parameters}, {self.body})"
+
+
+class BranchNode(ASTNode):
+    def __init__(self, function_name, condition, body):
+        super().__init__('BranchNode')
+        self.function_name = function_name
+        self.condition = condition
+        self.body = body
+
+    def __repr__(self):
+        return f"{self.node_type}({self.function_name}, {self.condition}, {self.body})"
+
+
+class BranchFunctionNode(StatementNode):
+    def __init__(self, name, branches):
+        super().__init__('BranchFunctionNode')
+        self.name = name
+        self.branches = branches
+
+    def __repr__(self):
+        return f"{self.statement_type}({self.name}, {self.branches})"
+
+
+class IfNode(StatementNode):
+    def __init__(self, condition, body):
+        super().__init__('IfNode')
+        self.condition = condition
+        self.body = body
+
+    def __repr__(self):
+        return f"IfNode(condition={self.condition}, body={self.body})"
+
+
+# FIM CATEGORIA
+
+# Expressões (Expressions)
 
 class ExpressionNode(ASTNode):
     def __init__(self, expression_type):
@@ -122,19 +182,6 @@ class RandomNode(ExpressionNode):
     def __repr__(self):
         return f"{self.expression_type}({self.upper_limit})"
 
-    ## NODES DE FUNCOES
-
-
-class FunctionNode(StatementNode):
-    def __init__(self, name, parameters, body):
-        super().__init__('FunctionNode')
-        self.name = name
-        self.parameters = parameters
-        self.body = body
-
-    def __repr__(self):
-        return f"{self.statement_type}({self.name}, {self.parameters}, {self.body})"
-
 
 class FunctionCallNode(ExpressionNode):
     def __init__(self, name, arguments):
@@ -146,45 +193,9 @@ class FunctionCallNode(ExpressionNode):
         return f"{self.expression_type}({self.name}, {self.arguments})"
 
 
-class IfNode(StatementNode):
-    def __init__(self, condition, body):
-        super().__init__('IfNode')
-        self.condition = condition
-        self.body = body
+# FIM CATEGORIA
 
-    def __repr__(self):
-        return f"IfNode(condition={self.condition}, body={self.body})"
-
-
-class ReturnNode(StatementNode):
-    def __init__(self, expression):
-        super().__init__('ReturnNode')
-        self.expression = expression
-
-    def __repr__(self):
-        return f"{self.statement_type}({self.expression})"
-
-
-class BranchNode(ASTNode):
-    def __init__(self, function_name, condition, body):
-        super().__init__('BranchNode')
-        self.function_name = function_name
-        self.condition = condition
-        self.body = body
-
-    def __repr__(self):
-        return f"{self.node_type}({self.function_name}, {self.condition}, {self.body})"
-
-
-class BranchFunctionNode(StatementNode):
-    def __init__(self, name, branches):
-        super().__init__('BranchFunctionNode')
-        self.name = name
-        self.branches = branches
-
-    def __repr__(self):
-        return f"{self.statement_type}({self.name}, {self.branches})"
-
+# Listas e Operações em Listas
 
 class ListNode(ExpressionNode):
     def __init__(self, elements):
@@ -193,6 +204,16 @@ class ListNode(ExpressionNode):
 
     def __repr__(self):
         return f"{self.expression_type}({self.elements})"
+
+
+class ListPatternNode(ASTNode):
+    def __init__(self, head, tail):
+        super().__init__('ListPatternNode')
+        self.head = head
+        self.tail = tail
+
+    def __repr__(self):
+        return f"{self.node_type}({self.head}, {self.tail})"
 
 
 class MapNode(ExpressionNode):
@@ -215,12 +236,4 @@ class FoldNode(ExpressionNode):
     def __repr__(self):
         return f"{self.expression_type}({self.function}, {self.list_node}, {self.initial_value})"
 
-
-class ListPatternNode(ASTNode):
-    def __init__(self, head, tail):
-        super().__init__('ListPatternNode')
-        self.head = head
-        self.tail = tail
-
-    def __repr__(self):
-        return f"{self.node_type}({self.head}, {self.tail})"
+# FIM CATEGORIA

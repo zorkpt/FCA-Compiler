@@ -8,5 +8,6 @@ FIM
 a = area_retangulo(10, 20);
 b = area_quadrado(30);
 
+
 ESCREVER(a);
 ESCREVER(b);

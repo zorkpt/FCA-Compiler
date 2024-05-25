@@ -122,7 +122,7 @@ def t_newline(t):
 # Exemplo de comentário de uma linha: -- isto é um comentário
 # Exemplo de comentário de múltiplas linhas: {- isto é um comentário -}
 # Expressão regular:
-# \-\-.*      : Combina duas hifens seguidas de qualquer sequência de caracteres (comentário de uma linha)
+# \-\-.*      : Combina dois hifens seguids de qualquer sequência de caracteres (comentário de uma linha)
 # |           : OU
 # {-.+?-}     : Combina a sequência `{-` qualquer caracter `-}`
 def t_COMENTARIO(t):

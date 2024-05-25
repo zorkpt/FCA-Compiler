@@ -1,79 +1,61 @@
 Tokens gerados:
-LexToken(FUNCAO,'FUNCAO',1,0)
-LexToken(IDENTIFICADOR,'fib',1,7)
-LexToken(PARENTESES_ESQ,'(',1,10)
-LexToken(NUMERO,0,1,12)
-LexToken(PARENTESES_DIR,')',1,14)
-LexToken(VIRGULA,',',1,15)
-LexToken(DOIS_PONTOS,':',1,16)
-LexToken(NUMERO,0,1,18)
-LexToken(PONTO_E_VIRGULA,';',1,20)
-LexToken(FUNCAO,'FUNCAO',2,22)
-LexToken(IDENTIFICADOR,'fib',2,29)
-LexToken(PARENTESES_ESQ,'(',2,32)
-LexToken(NUMERO,1,2,34)
-LexToken(PARENTESES_DIR,')',2,36)
-LexToken(VIRGULA,',',2,37)
-LexToken(DOIS_PONTOS,':',2,38)
-LexToken(NUMERO,1,2,40)
-LexToken(PONTO_E_VIRGULA,';',2,42)
-LexToken(FUNCAO,'FUNCAO',3,44)
-LexToken(IDENTIFICADOR,'fib',3,51)
-LexToken(PARENTESES_ESQ,'(',3,54)
-LexToken(IDENTIFICADOR,'n',3,56)
-LexToken(PARENTESES_DIR,')',3,58)
-LexToken(DOIS_PONTOS,':',3,59)
-LexToken(IDENTIFICADOR,'a',4,65)
-LexToken(ATRIBUICAO,'=',4,67)
-LexToken(IDENTIFICADOR,'fib',4,69)
-LexToken(PARENTESES_ESQ,'(',4,72)
-LexToken(IDENTIFICADOR,'n',4,73)
-LexToken(OPERADOR_ARITMETICO,'-',4,74)
-LexToken(NUMERO,1,4,75)
-LexToken(PARENTESES_DIR,')',4,76)
-LexToken(PONTO_E_VIRGULA,';',4,77)
-LexToken(IDENTIFICADOR,'b',5,83)
-LexToken(ATRIBUICAO,'=',5,85)
-LexToken(IDENTIFICADOR,'fib',5,87)
-LexToken(PARENTESES_ESQ,'(',5,90)
-LexToken(IDENTIFICADOR,'n',5,91)
-LexToken(OPERADOR_ARITMETICO,'-',5,92)
-LexToken(NUMERO,2,5,93)
-LexToken(PARENTESES_DIR,')',5,94)
-LexToken(PONTO_E_VIRGULA,';',5,95)
-LexToken(IDENTIFICADOR,'a',6,101)
-LexToken(OPERADOR_ARITMETICO,'+',6,103)
-LexToken(IDENTIFICADOR,'b',6,105)
-LexToken(PONTO_E_VIRGULA,';',6,106)
-LexToken(FIM,'FIM',7,108)
-LexToken(IDENTIFICADOR,'fib5',8,112)
-LexToken(ATRIBUICAO,'=',8,117)
-LexToken(IDENTIFICADOR,'fib',8,119)
-LexToken(PARENTESES_ESQ,'(',8,122)
-LexToken(NUMERO,5,8,123)
-LexToken(PARENTESES_DIR,')',8,124)
-LexToken(PONTO_E_VIRGULA,';',8,125)
-ProgramNode([BranchNode(fib, NumberNode(0), [ReturnNode(NumberNode(0))]), BranchNode(fib, NumberNode(1), [ReturnNode(NumberNode(1))]), FunctionNode(fib, ['n'], [AssignNode(a, FunctionCallNode(fib, [BinOpNode(-, IdentifierNode(n), NumberNode(1))])), AssignNode(b, FunctionCallNode(fib, [BinOpNode(-, IdentifierNode(n), NumberNode(2))])), BinOpNode(+, IdentifierNode(a), IdentifierNode(b))]), AssignNode(fib5, FunctionCallNode(fib, [NumberNode(5)]))])
+LexToken(IDENTIFICADOR,'valor',1,0)
+LexToken(ATRIBUICAO,'=',1,6)
+LexToken(NUMERO,5,1,8)
+LexToken(PONTO_E_VIRGULA,';',1,9)
+LexToken(ESCREVER,'ESCREVER',2,11)
+LexToken(PARENTESES_ESQ,'(',2,19)
+LexToken(IDENTIFICADOR,'valor',2,20)
+LexToken(PARENTESES_DIR,')',2,25)
+LexToken(PONTO_E_VIRGULA,';',2,26)
+LexToken(ESCREVER,'ESCREVER',3,65)
+LexToken(PARENTESES_ESQ,'(',3,73)
+LexToken(NUMERO,365,3,74)
+LexToken(OPERADOR_ARITMETICO,'*',3,78)
+LexToken(NUMERO,2,3,80)
+LexToken(PARENTESES_DIR,')',3,81)
+LexToken(PONTO_E_VIRGULA,';',3,82)
+LexToken(ESCREVER,'ESCREVER',4,91)
+LexToken(PARENTESES_ESQ,'(',4,99)
+LexToken(STRING,'Ola Mundo',4,100)
+LexToken(PARENTESES_DIR,')',4,111)
+LexToken(PONTO_E_VIRGULA,';',4,112)
+LexToken(IDENTIFICADOR,'curso',5,129)
+LexToken(ATRIBUICAO,'=',5,135)
+LexToken(STRING,'ESI',5,137)
+LexToken(PONTO_E_VIRGULA,';',5,142)
+LexToken(ESCREVER,'ESCREVER',6,144)
+LexToken(PARENTESES_ESQ,'(',6,152)
+LexToken(STRING,'Olá, ',6,153)
+LexToken(OPERADOR_CONCAT,'<>',6,160)
+LexToken(IDENTIFICADOR,'curso',6,163)
+LexToken(PARENTESES_DIR,')',6,168)
+LexToken(PONTO_E_VIRGULA,';',6,169)
+AssignNode: AssignNode(valor, NumberNode(5)) - valor = NumberNode(5)
+Statement list: [AssignNode(valor, NumberNode(5))]
+Statement list: [AssignNode(valor, NumberNode(5)), WriteNode(IdentifierNode(valor))]
+Statement list: [AssignNode(valor, NumberNode(5)), WriteNode(IdentifierNode(valor)), WriteNode(BinOpNode(*, NumberNode(365), NumberNode(2)))]
+Statement list: [AssignNode(valor, NumberNode(5)), WriteNode(IdentifierNode(valor)), WriteNode(BinOpNode(*, NumberNode(365), NumberNode(2))), WriteNode(StringNode(Ola Mundo))]
+AssignNode: AssignNode(curso, StringNode(ESI)) - curso = StringNode(ESI)
+Statement list: [AssignNode(valor, NumberNode(5)), WriteNode(IdentifierNode(valor)), WriteNode(BinOpNode(*, NumberNode(365), NumberNode(2))), WriteNode(StringNode(Ola Mundo)), AssignNode(curso, StringNode(ESI))]
+Statement list: [AssignNode(valor, NumberNode(5)), WriteNode(IdentifierNode(valor)), WriteNode(BinOpNode(*, NumberNode(365), NumberNode(2))), WriteNode(StringNode(Ola Mundo)), AssignNode(curso, StringNode(ESI)), WriteNode(BinOpNode(<>, StringNode(Olá, ), IdentifierNode(curso)))]
+ProgramNode([AssignNode(valor, NumberNode(5)), WriteNode(IdentifierNode(valor)), WriteNode(BinOpNode(*, NumberNode(365), NumberNode(2))), WriteNode(StringNode(Ola Mundo)), AssignNode(curso, StringNode(ESI)), WriteNode(BinOpNode(<>, StringNode(Olá, ), IdentifierNode(curso)))])
 
 Interpretação do código:
+5
+730
+Ola Mundo
+Olá, ESI
 
 Código C gerado:
 #include <stdio.h>
 #include <stdlib.h>
-void map(int (*func)(int), int *arr, int size) {
-int fib(int n) { a = fib((n - 1)); b = fib((n - 2)); (a + b) return -1; }
-    for (int i = 0; i < size; i++) {
-        arr[i] = func(arr[i]);
-    }
-}
-int fold(int (*func)(int, int), int *arr, int size, int initial) {
-    int result = initial;
-    for (int i = 0; i < size; i++) {
-        result = func(result, arr[i]);
-    }
-    return result;
-}
 int main() {
-int fib5 = fib(5);
+int valor = 5;
+printf("%d\n", valor);
+printf("%d\n", (365 * 2));
+printf("Ola Mundo\n");
+const char* curso = "ESI";
+printf("Olá, %s\n", curso);
 return 0;
 }

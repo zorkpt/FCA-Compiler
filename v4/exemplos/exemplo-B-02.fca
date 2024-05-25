@@ -2,4 +2,4 @@
    Olá, EST IPCA! -}
 escola ="EST";
 inst = "IPCA";
-ESCREVER ("Olá, #{escola} #{inst}!");
+ESCREVER("Olá, #{escola} #{inst}!");

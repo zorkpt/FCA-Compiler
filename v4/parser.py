@@ -27,10 +27,11 @@ Uma lista de instruções pode ser:
 def p_statement_list(p):
     '''statement_list : statement
                       | statement_list statement'''
-    if len(p) == 2:  # Se a lista contém apenas uma instrução, cria uma lista com essa instrução
+    if len(p) == 2:
         p[0] = [p[1]]
-    else:  # Se a lista contém múltiplas instruções, concatena a nova instrução à lista existente
+    else:
         p[0] = p[1] + [p[2]]
+    print(f"Statement list: {p[0]}")
 
 
 """
@@ -41,22 +42,31 @@ FUNCAO IDENTIFICADOR (parameters) , : expression ;
 """
 def p_statement_function_inline(p):
     '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ parameters PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA'''
-    if all(isinstance(param, NumberNode) for param in p[4]):  # Verifica se todos os parâmetros são números
-        p[0] = FunctionNode(p[2], [], [ReturnNode(p[8])])  # Cria um nó de função com uma lista vazia de parâmetros e a expressão como corpo
-    else:
-        p[0] = FunctionNode(p[2], p[4], [ReturnNode(p[8])])  # Cria um nó de função com os parâmetros fornecidos e a expressão como corpo
+    if isinstance(p[4], list):  # Verifica se os parâmetros são uma lista
+        p[0] = FunctionNode(p[2], p[4], [ReturnNode(p[8])])
+    else:  # Caso contrário, é um padrão de lista
+        p[0] = FunctionNode(p[2], [p[4]], [ReturnNode(p[8])])
 
 
 """
-Regra de produção para uma declaração de função por ramos.
+Regra de produção para uma declaração de função com padrão de lista inline.
 
-Uma função por ramos é definida em uma única linha e possui a estrutura:
-FUNCAO IDENTIFICADOR (NUMERO) , : expression ;
+Uma função com padrão de lista inline possui a estrutura:
+FUNCAO IDENTIFICADOR (list_pattern) , : expression ;
 """
+def p_statement_function_list_pattern_inline(p):
+    '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ list_pattern PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA'''
+    p[0] = FunctionNode(p[2], [p[4]], [ReturnNode(p[8])])
+
+
 def p_statement_function_branch(p):
-    '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA'''
+    '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ expression PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA
+                 | FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA'''
     function_name = p[2]
-    condition = NumberNode(p[4])
+    if isinstance(p[4], ListNode):
+        condition = p[4]
+    else:
+        condition = NumberNode(p[4])
     body = [ReturnNode(p[8])]
     p[0] = BranchNode(function_name, condition, body)
 
@@ -83,6 +93,16 @@ def p_statement_function_multiline(p):
     '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ parameters PARENTESES_DIR DOIS_PONTOS statement_list FIM'''
     p[0] = FunctionNode(p[2], p[4], p[7])
 
+
+"""
+Regra de produção para uma função de múltiplas linhas com padrão de lista.
+
+Uma função de múltiplas linhas com padrão de lista possui a estrutura:
+FUNCAO IDENTIFICADOR (list_pattern) : statement_list FIM
+"""
+def p_statement_function_list_pattern_multiline(p):
+    '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ list_pattern PARENTESES_DIR DOIS_PONTOS statement_list FIM'''
+    p[0] = FunctionNode(p[2], [p[4]], p[7])
 
 """
 Regra de produção para uma lista opcional de instruções.
@@ -214,10 +234,8 @@ IDENTIFICADOR = expression ;
 """
 def p_statement_atribuicao(p):
     '''statement : IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA'''
-    if isinstance(p[3], FunctionCallNode):
-        p[0] = AssignNode(p[1], p[3])
-    else:
-        p[0] = AssignNode(p[1], p[3])
+    p[0] = AssignNode(p[1], p[3])
+    print(f"AssignNode: {p[0]} - {p[1]} = {p[3]}")
 
 
 """
@@ -289,27 +307,40 @@ Regra de produção para uma string interpolada.
 Uma string interpolada possui a estrutura:
 INTERPOLATED_STRING
 """
+
+
 def p_expression_interpolated_string(p):
     '''expression : INTERPOLATED_STRING'''
-    parts = []
-    current_str = ''
-    i = 0
-    while i < len(p[1]):
-        if p[1][i] == '#' and p[1][i + 1] == '{':
-            if current_str:
-                parts.append(StringNode(current_str))
-                current_str = ''
-            i += 2
-            var_name = ''
-            while p[1][i] != '}':
-                var_name += p[1][i]
-                i += 1
-            parts.append(IdentifierNode(var_name))
-        else:
-            current_str += p[1][i]
-        i += 1
-    if current_str:
-        parts.append(StringNode(current_str))
+
+    def extract_interpolated_parts(interpolated_string):
+        """Extrai as partes de uma string interpolada."""
+        parts = []
+        current_str = ''
+        i = 0
+        while i < len(interpolated_string):
+            # Se encontrar #{
+            if interpolated_string[i] == '#' and interpolated_string[i + 1] == '{':
+                if current_str:
+                    parts.append(StringNode(current_str))
+                    current_str = ''
+                i += 2  # Pula a sequência "#{"
+                var_name = ''
+                # Guarda tudo ate chegar a }
+                while interpolated_string[i] != '}':
+                    var_name += interpolated_string[i]
+                    i += 1
+                parts.append(IdentifierNode(var_name))
+            else:
+                current_str += interpolated_string[i]
+            i += 1
+        if current_str:
+            parts.append(StringNode(current_str))
+        return parts
+
+    # Extraí as partes da string interpolada
+    parts = extract_interpolated_parts(p[1])
+
+    # Cria o nó da AST para a string interpolada
     p[0] = InterpolatedStringNode(parts)
 
 
@@ -321,6 +352,7 @@ ENTRADA()
 def p_expression_input(p):
     '''expression : ENTRADA PARENTESES_ESQ PARENTESES_DIR'''
     p[0] = InputNode()
+    print(f"InputNode: {p[0]}")
 
 
 """
@@ -332,7 +364,7 @@ ALEATORIO(expression)
 def p_expression_random(p):
     '''expression : ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR'''
     p[0] = RandomNode(p[3])
-
+    print(f"RandomNode: {p[0]}")
 
 """
 Função de tratamento de erros de sintaxe.
@@ -392,17 +424,6 @@ FOLD(IDENTIFICADOR, expression, expression)
 def p_expression_fold(p):
     '''expression : FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expression VIRGULA expression PARENTESES_DIR'''
     p[0] = FoldNode(p[3], p[5], p[7])
-
-
-"""
-Regra de produção para definição de função com padrão de lista.
-
-A definição de função com padrão de lista possui a estrutura:
-FUNCAO IDENTIFICADOR (list_pattern) , : expression ;
-"""
-def p_function_definition_list_pattern(p):
-    '''statement : FUNCAO IDENTIFICADOR PARENTESES_ESQ list_pattern PARENTESES_DIR VIRGULA DOIS_PONTOS expression PONTO_E_VIRGULA'''
-    p[0] = FunctionNode(p[2], [p[4]], [ReturnNode(p[8])])
 
 
 """

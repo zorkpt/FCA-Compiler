@@ -1,0 +1,5 @@
+ESCREVER("Insere limite superior para um numero random.");
+valor = ENTRADA();
+ate10 = ALEATORIO(valor);
+
+ESCREVER(ate10);

@@ -6,3 +6,6 @@ FUNCAO soma2(c) :
 FIM
 seis = soma(4,2);
 oito = soma2(seis);
+
+ESCREVER(seis);
+ESCREVER(oito);
