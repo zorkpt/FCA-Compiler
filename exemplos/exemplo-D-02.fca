@@ -8,3 +8,6 @@ lista3 = fold( soma, [ 1, 2, 3 ], 0 );
 		    -- = soma( 1, soma(2, 3 ))
 			-- = soma( 1, 5)
 			-- = 6
+
+ESCREVER(lista2);
+ESCREVER(lista3);

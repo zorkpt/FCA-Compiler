@@ -2,456 +2,1875 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    COLCHETES_DIR
-    COLCHETES_ESQ
-    DOIS_PONTOS
-    FIM
-    FUNCAO
     OPERADOR_LOGICO
-    VIRGULA
 
 Grammar
 
-Rule 0     S' -> program
-Rule 1     program -> statements
-Rule 2     statements -> statements statement
-Rule 3     statements -> statement
-Rule 4     statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA
-Rule 5     statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA
-Rule 6     expression -> expression OPERADOR_ARITMETICO expression
-Rule 7     expression -> expression OPERADOR_CONCAT expression
-Rule 8     expression -> PARENTESES_ESQ expression PARENTESES_DIR
-Rule 9     expression -> NUMERO
-Rule 10    expression -> IDENTIFICADOR
-Rule 11    expression -> STRING
-Rule 12    expression -> INTERPOLATED_STRING
-Rule 13    expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR
-Rule 14    expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+Rule 0     S' -> programa
+Rule 1     programa -> lista_instrucoes
+Rule 2     lista_instrucoes -> instrucao
+Rule 3     lista_instrucoes -> lista_instrucoes instrucao
+Rule 4     instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+Rule 5     instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+Rule 6     instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+Rule 7     instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+Rule 8     expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+Rule 9     instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+Rule 10    instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+Rule 11    parametros -> parametros VIRGULA IDENTIFICADOR
+Rule 12    parametros -> IDENTIFICADOR
+Rule 13    parametros -> <empty>
+Rule 14    argumentos -> argumentos VIRGULA expressao
+Rule 15    argumentos -> expressao
+Rule 16    argumentos -> <empty>
+Rule 17    instrucao -> expressao PONTO_E_VIRGULA
+Rule 18    instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+Rule 19    instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+Rule 20    expressao -> expressao OPERADOR_ARITMETICO expressao
+Rule 21    expressao -> expressao OPERADOR_CONCAT expressao
+Rule 22    expressao -> PARENTESES_ESQ expressao PARENTESES_DIR
+Rule 23    expressao -> NUMERO
+Rule 24    expressao -> IDENTIFICADOR
+Rule 25    expressao -> STRING
+Rule 26    expressao -> INTERPOLATED_STRING
+Rule 27    expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR
+Rule 28    expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+Rule 29    expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR
+Rule 30    expressao -> COLCHETES_ESQ COLCHETES_DIR
+Rule 31    elementos_lista -> elementos_lista VIRGULA expressao
+Rule 32    elementos_lista -> expressao
+Rule 33    expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+Rule 34    expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+Rule 35    padrao_lista -> COLCHETES_ESQ COLCHETES_DIR
+Rule 36    padrao_lista -> IDENTIFICADOR DOIS_PONTOS IDENTIFICADOR
 
 Terminals, with rules where they appear
 
-ALEATORIO            : 14
-ATRIBUICAO           : 5
-COLCHETES_DIR        : 
-COLCHETES_ESQ        : 
-DOIS_PONTOS          : 
-ENTRADA              : 13
-ESCREVER             : 4
-FIM                  : 
-FUNCAO               : 
-IDENTIFICADOR        : 5 10
-INTERPOLATED_STRING  : 12
-NUMERO               : 9
-OPERADOR_ARITMETICO  : 6
-OPERADOR_CONCAT      : 7
+ALEATORIO            : 28
+ATRIBUICAO           : 19
+COLCHETES_DIR        : 29 30 35
+COLCHETES_ESQ        : 29 30 35
+DOIS_PONTOS          : 4 5 6 7 9 10 36
+ENTRADA              : 27
+ESCREVER             : 18
+FIM                  : 6 7
+FOLD                 : 34
+FUNCAO               : 4 5 6 7 9 10
+IDENTIFICADOR        : 4 5 6 7 8 9 10 11 12 19 24 33 34 36 36
+INTERPOLATED_STRING  : 26
+MAP                  : 33
+NUMERO               : 10 23
+OPERADOR_ARITMETICO  : 20
+OPERADOR_CONCAT      : 21
 OPERADOR_LOGICO      : 
-PARENTESES_DIR       : 4 8 13 14
-PARENTESES_ESQ       : 4 8 13 14
-PONTO_E_VIRGULA      : 4 5
-STRING               : 11
-VIRGULA              : 
+PARENTESES_DIR       : 4 5 6 7 8 9 10 18 22 27 28 33 34
+PARENTESES_ESQ       : 4 5 6 7 8 9 10 18 22 27 28 33 34
+PONTO_E_VIRGULA      : 4 5 9 10 17 18 19
+STRING               : 25
+VIRGULA              : 4 5 9 10 11 14 31 33 34 34
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 4 5 6 6 7 7 8 14
-program              : 0
-statement            : 2 3
-statements           : 1 2
+argumentos           : 8 14
+elementos_lista      : 29 31
+expressao            : 4 5 9 9 10 14 15 17 18 19 20 20 21 21 22 28 31 32 33 34 34
+instrucao            : 2 3
+lista_instrucoes     : 1 3 6 7
+padrao_lista         : 5 7
+parametros           : 4 6 11
+programa             : 0
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . program
-    (1) program -> . statements
-    (2) statements -> . statements statement
-    (3) statements -> . statement
-    (4) statement -> . ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA
-    (5) statement -> . IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA
+    (0) S' -> . programa
+    (1) programa -> . lista_instrucoes
+    (2) lista_instrucoes -> . instrucao
+    (3) lista_instrucoes -> . lista_instrucoes instrucao
+    (4) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (17) instrucao -> . expressao PONTO_E_VIRGULA
+    (18) instrucao -> . ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (19) instrucao -> . IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    ESCREVER        shift and go to state 4
+    FUNCAO          shift and go to state 4
+    ESCREVER        shift and go to state 9
     IDENTIFICADOR   shift and go to state 5
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
-    program                        shift and go to state 1
-    statements                     shift and go to state 2
-    statement                      shift and go to state 3
+    programa                       shift and go to state 1
+    lista_instrucoes               shift and go to state 2
+    instrucao                      shift and go to state 3
+    expressao                      shift and go to state 7
 
 state 1
 
-    (0) S' -> program .
+    (0) S' -> programa .
 
 
 
 state 2
 
-    (1) program -> statements .
-    (2) statements -> statements . statement
-    (4) statement -> . ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA
-    (5) statement -> . IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA
+    (1) programa -> lista_instrucoes .
+    (3) lista_instrucoes -> lista_instrucoes . instrucao
+    (4) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (17) instrucao -> . expressao PONTO_E_VIRGULA
+    (18) instrucao -> . ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (19) instrucao -> . IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    $end            reduce using rule 1 (program -> statements .)
-    ESCREVER        shift and go to state 4
+    $end            reduce using rule 1 (programa -> lista_instrucoes .)
+    FUNCAO          shift and go to state 4
+    ESCREVER        shift and go to state 9
     IDENTIFICADOR   shift and go to state 5
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
-    statement                      shift and go to state 6
+    instrucao                      shift and go to state 17
+    expressao                      shift and go to state 7
 
 state 3
 
-    (3) statements -> statement .
+    (2) lista_instrucoes -> instrucao .
 
-    ESCREVER        reduce using rule 3 (statements -> statement .)
-    IDENTIFICADOR   reduce using rule 3 (statements -> statement .)
-    $end            reduce using rule 3 (statements -> statement .)
+    FUNCAO          reduce using rule 2 (lista_instrucoes -> instrucao .)
+    ESCREVER        reduce using rule 2 (lista_instrucoes -> instrucao .)
+    IDENTIFICADOR   reduce using rule 2 (lista_instrucoes -> instrucao .)
+    PARENTESES_ESQ  reduce using rule 2 (lista_instrucoes -> instrucao .)
+    NUMERO          reduce using rule 2 (lista_instrucoes -> instrucao .)
+    STRING          reduce using rule 2 (lista_instrucoes -> instrucao .)
+    INTERPOLATED_STRING reduce using rule 2 (lista_instrucoes -> instrucao .)
+    ENTRADA         reduce using rule 2 (lista_instrucoes -> instrucao .)
+    ALEATORIO       reduce using rule 2 (lista_instrucoes -> instrucao .)
+    COLCHETES_ESQ   reduce using rule 2 (lista_instrucoes -> instrucao .)
+    MAP             reduce using rule 2 (lista_instrucoes -> instrucao .)
+    FOLD            reduce using rule 2 (lista_instrucoes -> instrucao .)
+    $end            reduce using rule 2 (lista_instrucoes -> instrucao .)
+    FIM             reduce using rule 2 (lista_instrucoes -> instrucao .)
 
 
 state 4
 
-    (4) statement -> ESCREVER . PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA
+    (4) instrucao -> FUNCAO . IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> FUNCAO . IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> FUNCAO . IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> FUNCAO . IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> FUNCAO . IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> FUNCAO . IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
 
-    PARENTESES_ESQ  shift and go to state 7
+    IDENTIFICADOR   shift and go to state 18
 
 
 state 5
 
-    (5) statement -> IDENTIFICADOR . ATRIBUICAO expression PONTO_E_VIRGULA
+    (19) instrucao -> IDENTIFICADOR . ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> IDENTIFICADOR . PARENTESES_ESQ argumentos PARENTESES_DIR
+    (24) expressao -> IDENTIFICADOR .
 
-    ATRIBUICAO      shift and go to state 8
+    ATRIBUICAO      shift and go to state 19
+    PARENTESES_ESQ  shift and go to state 20
+    PONTO_E_VIRGULA reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    OPERADOR_ARITMETICO reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    OPERADOR_CONCAT reduce using rule 24 (expressao -> IDENTIFICADOR .)
 
 
 state 6
 
-    (2) statements -> statements statement .
+    (22) expressao -> PARENTESES_ESQ . expressao PARENTESES_DIR
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    ESCREVER        reduce using rule 2 (statements -> statements statement .)
-    IDENTIFICADOR   reduce using rule 2 (statements -> statements statement .)
-    $end            reduce using rule 2 (statements -> statements statement .)
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
+    expressao                      shift and go to state 21
 
 state 7
 
-    (4) statement -> ESCREVER PARENTESES_ESQ . expression PARENTESES_DIR PONTO_E_VIRGULA
-    (6) expression -> . expression OPERADOR_ARITMETICO expression
-    (7) expression -> . expression OPERADOR_CONCAT expression
-    (8) expression -> . PARENTESES_ESQ expression PARENTESES_DIR
-    (9) expression -> . NUMERO
-    (10) expression -> . IDENTIFICADOR
-    (11) expression -> . STRING
-    (12) expression -> . INTERPOLATED_STRING
-    (13) expression -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
-    (14) expression -> . ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+    (17) instrucao -> expressao . PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
 
-    PARENTESES_ESQ  shift and go to state 9
-    NUMERO          shift and go to state 11
-    IDENTIFICADOR   shift and go to state 12
-    STRING          shift and go to state 13
-    INTERPOLATED_STRING shift and go to state 14
-    ENTRADA         shift and go to state 15
-    ALEATORIO       shift and go to state 16
+    PONTO_E_VIRGULA shift and go to state 23
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
 
-    expression                     shift and go to state 10
 
 state 8
 
-    (5) statement -> IDENTIFICADOR ATRIBUICAO . expression PONTO_E_VIRGULA
-    (6) expression -> . expression OPERADOR_ARITMETICO expression
-    (7) expression -> . expression OPERADOR_CONCAT expression
-    (8) expression -> . PARENTESES_ESQ expression PARENTESES_DIR
-    (9) expression -> . NUMERO
-    (10) expression -> . IDENTIFICADOR
-    (11) expression -> . STRING
-    (12) expression -> . INTERPOLATED_STRING
-    (13) expression -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
-    (14) expression -> . ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+    (23) expressao -> NUMERO .
 
-    PARENTESES_ESQ  shift and go to state 9
-    NUMERO          shift and go to state 11
-    IDENTIFICADOR   shift and go to state 12
-    STRING          shift and go to state 13
-    INTERPOLATED_STRING shift and go to state 14
-    ENTRADA         shift and go to state 15
-    ALEATORIO       shift and go to state 16
+    PONTO_E_VIRGULA reduce using rule 23 (expressao -> NUMERO .)
+    OPERADOR_ARITMETICO reduce using rule 23 (expressao -> NUMERO .)
+    OPERADOR_CONCAT reduce using rule 23 (expressao -> NUMERO .)
+    PARENTESES_DIR  reduce using rule 23 (expressao -> NUMERO .)
+    COLCHETES_DIR   reduce using rule 23 (expressao -> NUMERO .)
+    VIRGULA         reduce using rule 23 (expressao -> NUMERO .)
 
-    expression                     shift and go to state 17
 
 state 9
 
-    (8) expression -> PARENTESES_ESQ . expression PARENTESES_DIR
-    (6) expression -> . expression OPERADOR_ARITMETICO expression
-    (7) expression -> . expression OPERADOR_CONCAT expression
-    (8) expression -> . PARENTESES_ESQ expression PARENTESES_DIR
-    (9) expression -> . NUMERO
-    (10) expression -> . IDENTIFICADOR
-    (11) expression -> . STRING
-    (12) expression -> . INTERPOLATED_STRING
-    (13) expression -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
-    (14) expression -> . ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+    (18) instrucao -> ESCREVER . PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
 
-    PARENTESES_ESQ  shift and go to state 9
-    NUMERO          shift and go to state 11
-    IDENTIFICADOR   shift and go to state 12
-    STRING          shift and go to state 13
-    INTERPOLATED_STRING shift and go to state 14
-    ENTRADA         shift and go to state 15
-    ALEATORIO       shift and go to state 16
+    PARENTESES_ESQ  shift and go to state 26
 
-    expression                     shift and go to state 18
 
 state 10
 
-    (4) statement -> ESCREVER PARENTESES_ESQ expression . PARENTESES_DIR PONTO_E_VIRGULA
-    (6) expression -> expression . OPERADOR_ARITMETICO expression
-    (7) expression -> expression . OPERADOR_CONCAT expression
+    (25) expressao -> STRING .
 
-    PARENTESES_DIR  shift and go to state 19
-    OPERADOR_ARITMETICO shift and go to state 20
-    OPERADOR_CONCAT shift and go to state 21
+    PONTO_E_VIRGULA reduce using rule 25 (expressao -> STRING .)
+    OPERADOR_ARITMETICO reduce using rule 25 (expressao -> STRING .)
+    OPERADOR_CONCAT reduce using rule 25 (expressao -> STRING .)
+    PARENTESES_DIR  reduce using rule 25 (expressao -> STRING .)
+    COLCHETES_DIR   reduce using rule 25 (expressao -> STRING .)
+    VIRGULA         reduce using rule 25 (expressao -> STRING .)
 
 
 state 11
 
-    (9) expression -> NUMERO .
+    (26) expressao -> INTERPOLATED_STRING .
 
-    PARENTESES_DIR  reduce using rule 9 (expression -> NUMERO .)
-    OPERADOR_ARITMETICO reduce using rule 9 (expression -> NUMERO .)
-    OPERADOR_CONCAT reduce using rule 9 (expression -> NUMERO .)
-    PONTO_E_VIRGULA reduce using rule 9 (expression -> NUMERO .)
+    PONTO_E_VIRGULA reduce using rule 26 (expressao -> INTERPOLATED_STRING .)
+    OPERADOR_ARITMETICO reduce using rule 26 (expressao -> INTERPOLATED_STRING .)
+    OPERADOR_CONCAT reduce using rule 26 (expressao -> INTERPOLATED_STRING .)
+    PARENTESES_DIR  reduce using rule 26 (expressao -> INTERPOLATED_STRING .)
+    COLCHETES_DIR   reduce using rule 26 (expressao -> INTERPOLATED_STRING .)
+    VIRGULA         reduce using rule 26 (expressao -> INTERPOLATED_STRING .)
 
 
 state 12
 
-    (10) expression -> IDENTIFICADOR .
+    (27) expressao -> ENTRADA . PARENTESES_ESQ PARENTESES_DIR
 
-    PARENTESES_DIR  reduce using rule 10 (expression -> IDENTIFICADOR .)
-    OPERADOR_ARITMETICO reduce using rule 10 (expression -> IDENTIFICADOR .)
-    OPERADOR_CONCAT reduce using rule 10 (expression -> IDENTIFICADOR .)
-    PONTO_E_VIRGULA reduce using rule 10 (expression -> IDENTIFICADOR .)
+    PARENTESES_ESQ  shift and go to state 27
 
 
 state 13
 
-    (11) expression -> STRING .
+    (28) expressao -> ALEATORIO . PARENTESES_ESQ expressao PARENTESES_DIR
 
-    PARENTESES_DIR  reduce using rule 11 (expression -> STRING .)
-    OPERADOR_ARITMETICO reduce using rule 11 (expression -> STRING .)
-    OPERADOR_CONCAT reduce using rule 11 (expression -> STRING .)
-    PONTO_E_VIRGULA reduce using rule 11 (expression -> STRING .)
+    PARENTESES_ESQ  shift and go to state 28
 
 
 state 14
 
-    (12) expression -> INTERPOLATED_STRING .
+    (29) expressao -> COLCHETES_ESQ . elementos_lista COLCHETES_DIR
+    (30) expressao -> COLCHETES_ESQ . COLCHETES_DIR
+    (31) elementos_lista -> . elementos_lista VIRGULA expressao
+    (32) elementos_lista -> . expressao
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    PARENTESES_DIR  reduce using rule 12 (expression -> INTERPOLATED_STRING .)
-    OPERADOR_ARITMETICO reduce using rule 12 (expression -> INTERPOLATED_STRING .)
-    OPERADOR_CONCAT reduce using rule 12 (expression -> INTERPOLATED_STRING .)
-    PONTO_E_VIRGULA reduce using rule 12 (expression -> INTERPOLATED_STRING .)
+    COLCHETES_DIR   shift and go to state 30
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
+    elementos_lista                shift and go to state 29
+    expressao                      shift and go to state 31
 
 state 15
 
-    (13) expression -> ENTRADA . PARENTESES_ESQ PARENTESES_DIR
+    (33) expressao -> MAP . PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
 
-    PARENTESES_ESQ  shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 32
 
 
 state 16
 
-    (14) expression -> ALEATORIO . PARENTESES_ESQ expression PARENTESES_DIR
+    (34) expressao -> FOLD . PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    PARENTESES_ESQ  shift and go to state 23
+    PARENTESES_ESQ  shift and go to state 33
 
 
 state 17
 
-    (5) statement -> IDENTIFICADOR ATRIBUICAO expression . PONTO_E_VIRGULA
-    (6) expression -> expression . OPERADOR_ARITMETICO expression
-    (7) expression -> expression . OPERADOR_CONCAT expression
+    (3) lista_instrucoes -> lista_instrucoes instrucao .
 
-    PONTO_E_VIRGULA shift and go to state 24
-    OPERADOR_ARITMETICO shift and go to state 20
-    OPERADOR_CONCAT shift and go to state 21
+    FUNCAO          reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    ESCREVER        reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    IDENTIFICADOR   reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    PARENTESES_ESQ  reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    NUMERO          reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    STRING          reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    INTERPOLATED_STRING reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    ENTRADA         reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    ALEATORIO       reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    COLCHETES_ESQ   reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    MAP             reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    FOLD            reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    $end            reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
+    FIM             reduce using rule 3 (lista_instrucoes -> lista_instrucoes instrucao .)
 
 
 state 18
 
-    (8) expression -> PARENTESES_ESQ expression . PARENTESES_DIR
-    (6) expression -> expression . OPERADOR_ARITMETICO expression
-    (7) expression -> expression . OPERADOR_CONCAT expression
+    (4) instrucao -> FUNCAO IDENTIFICADOR . PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> FUNCAO IDENTIFICADOR . PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> FUNCAO IDENTIFICADOR . PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> FUNCAO IDENTIFICADOR . PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> FUNCAO IDENTIFICADOR . PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> FUNCAO IDENTIFICADOR . PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
 
-    PARENTESES_DIR  shift and go to state 25
-    OPERADOR_ARITMETICO shift and go to state 20
-    OPERADOR_CONCAT shift and go to state 21
+    PARENTESES_ESQ  shift and go to state 34
 
 
 state 19
 
-    (4) statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR . PONTO_E_VIRGULA
+    (19) instrucao -> IDENTIFICADOR ATRIBUICAO . expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    PONTO_E_VIRGULA shift and go to state 26
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
+    expressao                      shift and go to state 35
 
 state 20
 
-    (6) expression -> expression OPERADOR_ARITMETICO . expression
-    (6) expression -> . expression OPERADOR_ARITMETICO expression
-    (7) expression -> . expression OPERADOR_CONCAT expression
-    (8) expression -> . PARENTESES_ESQ expression PARENTESES_DIR
-    (9) expression -> . NUMERO
-    (10) expression -> . IDENTIFICADOR
-    (11) expression -> . STRING
-    (12) expression -> . INTERPOLATED_STRING
-    (13) expression -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
-    (14) expression -> . ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+    (8) expressao -> IDENTIFICADOR PARENTESES_ESQ . argumentos PARENTESES_DIR
+    (14) argumentos -> . argumentos VIRGULA expressao
+    (15) argumentos -> . expressao
+    (16) argumentos -> .
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    PARENTESES_ESQ  shift and go to state 9
-    NUMERO          shift and go to state 11
-    IDENTIFICADOR   shift and go to state 12
-    STRING          shift and go to state 13
-    INTERPOLATED_STRING shift and go to state 14
-    ENTRADA         shift and go to state 15
-    ALEATORIO       shift and go to state 16
+    PARENTESES_DIR  reduce using rule 16 (argumentos -> .)
+    VIRGULA         reduce using rule 16 (argumentos -> .)
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
-    expression                     shift and go to state 27
+    argumentos                     shift and go to state 36
+    expressao                      shift and go to state 37
 
 state 21
 
-    (7) expression -> expression OPERADOR_CONCAT . expression
-    (6) expression -> . expression OPERADOR_ARITMETICO expression
-    (7) expression -> . expression OPERADOR_CONCAT expression
-    (8) expression -> . PARENTESES_ESQ expression PARENTESES_DIR
-    (9) expression -> . NUMERO
-    (10) expression -> . IDENTIFICADOR
-    (11) expression -> . STRING
-    (12) expression -> . INTERPOLATED_STRING
-    (13) expression -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
-    (14) expression -> . ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+    (22) expressao -> PARENTESES_ESQ expressao . PARENTESES_DIR
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
 
-    PARENTESES_ESQ  shift and go to state 9
-    NUMERO          shift and go to state 11
-    IDENTIFICADOR   shift and go to state 12
-    STRING          shift and go to state 13
-    INTERPOLATED_STRING shift and go to state 14
-    ENTRADA         shift and go to state 15
-    ALEATORIO       shift and go to state 16
+    PARENTESES_DIR  shift and go to state 38
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
 
-    expression                     shift and go to state 28
 
 state 22
 
-    (13) expression -> ENTRADA PARENTESES_ESQ . PARENTESES_DIR
+    (8) expressao -> IDENTIFICADOR . PARENTESES_ESQ argumentos PARENTESES_DIR
+    (24) expressao -> IDENTIFICADOR .
 
-    PARENTESES_DIR  shift and go to state 29
+    PARENTESES_ESQ  shift and go to state 20
+    PARENTESES_DIR  reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    OPERADOR_ARITMETICO reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    OPERADOR_CONCAT reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    COLCHETES_DIR   reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    VIRGULA         reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    PONTO_E_VIRGULA reduce using rule 24 (expressao -> IDENTIFICADOR .)
 
 
 state 23
 
-    (14) expression -> ALEATORIO PARENTESES_ESQ . expression PARENTESES_DIR
-    (6) expression -> . expression OPERADOR_ARITMETICO expression
-    (7) expression -> . expression OPERADOR_CONCAT expression
-    (8) expression -> . PARENTESES_ESQ expression PARENTESES_DIR
-    (9) expression -> . NUMERO
-    (10) expression -> . IDENTIFICADOR
-    (11) expression -> . STRING
-    (12) expression -> . INTERPOLATED_STRING
-    (13) expression -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
-    (14) expression -> . ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR
+    (17) instrucao -> expressao PONTO_E_VIRGULA .
 
-    PARENTESES_ESQ  shift and go to state 9
-    NUMERO          shift and go to state 11
-    IDENTIFICADOR   shift and go to state 12
-    STRING          shift and go to state 13
-    INTERPOLATED_STRING shift and go to state 14
-    ENTRADA         shift and go to state 15
-    ALEATORIO       shift and go to state 16
+    FUNCAO          reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    STRING          reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    MAP             reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    $end            reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
+    FIM             reduce using rule 17 (instrucao -> expressao PONTO_E_VIRGULA .)
 
-    expression                     shift and go to state 30
 
 state 24
 
-    (5) statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA .
+    (20) expressao -> expressao OPERADOR_ARITMETICO . expressao
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    ESCREVER        reduce using rule 5 (statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA .)
-    IDENTIFICADOR   reduce using rule 5 (statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA .)
-    $end            reduce using rule 5 (statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA .)
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
+    expressao                      shift and go to state 39
 
 state 25
 
-    (8) expression -> PARENTESES_ESQ expression PARENTESES_DIR .
+    (21) expressao -> expressao OPERADOR_CONCAT . expressao
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    PARENTESES_DIR  reduce using rule 8 (expression -> PARENTESES_ESQ expression PARENTESES_DIR .)
-    OPERADOR_ARITMETICO reduce using rule 8 (expression -> PARENTESES_ESQ expression PARENTESES_DIR .)
-    OPERADOR_CONCAT reduce using rule 8 (expression -> PARENTESES_ESQ expression PARENTESES_DIR .)
-    PONTO_E_VIRGULA reduce using rule 8 (expression -> PARENTESES_ESQ expression PARENTESES_DIR .)
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
+    expressao                      shift and go to state 40
 
 state 26
 
-    (4) statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA .
+    (18) instrucao -> ESCREVER PARENTESES_ESQ . expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    ESCREVER        reduce using rule 4 (statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA .)
-    IDENTIFICADOR   reduce using rule 4 (statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA .)
-    $end            reduce using rule 4 (statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA .)
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
+    expressao                      shift and go to state 41
 
 state 27
 
-    (6) expression -> expression OPERADOR_ARITMETICO expression .
-    (6) expression -> expression . OPERADOR_ARITMETICO expression
-    (7) expression -> expression . OPERADOR_CONCAT expression
+    (27) expressao -> ENTRADA PARENTESES_ESQ . PARENTESES_DIR
 
-    PARENTESES_DIR  reduce using rule 6 (expression -> expression OPERADOR_ARITMETICO expression .)
-    OPERADOR_ARITMETICO reduce using rule 6 (expression -> expression OPERADOR_ARITMETICO expression .)
-    OPERADOR_CONCAT reduce using rule 6 (expression -> expression OPERADOR_ARITMETICO expression .)
-    PONTO_E_VIRGULA reduce using rule 6 (expression -> expression OPERADOR_ARITMETICO expression .)
-
-  ! OPERADOR_ARITMETICO [ shift and go to state 20 ]
-  ! OPERADOR_CONCAT [ shift and go to state 21 ]
+    PARENTESES_DIR  shift and go to state 42
 
 
 state 28
 
-    (7) expression -> expression OPERADOR_CONCAT expression .
-    (6) expression -> expression . OPERADOR_ARITMETICO expression
-    (7) expression -> expression . OPERADOR_CONCAT expression
+    (28) expressao -> ALEATORIO PARENTESES_ESQ . expressao PARENTESES_DIR
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
 
-    PARENTESES_DIR  reduce using rule 7 (expression -> expression OPERADOR_CONCAT expression .)
-    OPERADOR_CONCAT reduce using rule 7 (expression -> expression OPERADOR_CONCAT expression .)
-    PONTO_E_VIRGULA reduce using rule 7 (expression -> expression OPERADOR_CONCAT expression .)
-    OPERADOR_ARITMETICO shift and go to state 20
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
 
-  ! OPERADOR_ARITMETICO [ reduce using rule 7 (expression -> expression OPERADOR_CONCAT expression .) ]
-  ! OPERADOR_CONCAT [ shift and go to state 21 ]
-
+    expressao                      shift and go to state 43
 
 state 29
 
-    (13) expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .
+    (29) expressao -> COLCHETES_ESQ elementos_lista . COLCHETES_DIR
+    (31) elementos_lista -> elementos_lista . VIRGULA expressao
 
-    PARENTESES_DIR  reduce using rule 13 (expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
-    OPERADOR_ARITMETICO reduce using rule 13 (expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
-    OPERADOR_CONCAT reduce using rule 13 (expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
-    PONTO_E_VIRGULA reduce using rule 13 (expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+    COLCHETES_DIR   shift and go to state 44
+    VIRGULA         shift and go to state 45
 
 
 state 30
 
-    (14) expression -> ALEATORIO PARENTESES_ESQ expression . PARENTESES_DIR
-    (6) expression -> expression . OPERADOR_ARITMETICO expression
-    (7) expression -> expression . OPERADOR_CONCAT expression
+    (30) expressao -> COLCHETES_ESQ COLCHETES_DIR .
 
-    PARENTESES_DIR  shift and go to state 31
-    OPERADOR_ARITMETICO shift and go to state 20
-    OPERADOR_CONCAT shift and go to state 21
+    PONTO_E_VIRGULA reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    OPERADOR_CONCAT reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    PARENTESES_DIR  reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    COLCHETES_DIR   reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    VIRGULA         reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
 
 
 state 31
 
-    (14) expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR .
+    (32) elementos_lista -> expressao .
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
 
-    PARENTESES_DIR  reduce using rule 14 (expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR .)
-    OPERADOR_ARITMETICO reduce using rule 14 (expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR .)
-    OPERADOR_CONCAT reduce using rule 14 (expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR .)
-    PONTO_E_VIRGULA reduce using rule 14 (expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 32 (elementos_lista -> expressao .)
+    VIRGULA         reduce using rule 32 (elementos_lista -> expressao .)
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
 
+
+state 32
+
+    (33) expressao -> MAP PARENTESES_ESQ . IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 46
+
+
+state 33
+
+    (34) expressao -> FOLD PARENTESES_ESQ . IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 47
+
+
+state 34
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ . parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ . padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ . parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ . padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ . expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ . NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (11) parametros -> . parametros VIRGULA IDENTIFICADOR
+    (12) parametros -> . IDENTIFICADOR
+    (13) parametros -> .
+    (35) padrao_lista -> . COLCHETES_ESQ COLCHETES_DIR
+    (36) padrao_lista -> . IDENTIFICADOR DOIS_PONTOS IDENTIFICADOR
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    NUMERO          shift and go to state 52
+    IDENTIFICADOR   shift and go to state 48
+    PARENTESES_DIR  reduce using rule 13 (parametros -> .)
+    VIRGULA         reduce using rule 13 (parametros -> .)
+    COLCHETES_ESQ   shift and go to state 53
+    PARENTESES_ESQ  shift and go to state 6
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    parametros                     shift and go to state 49
+    expressao                      shift and go to state 50
+    padrao_lista                   shift and go to state 51
+
+state 35
+
+    (19) instrucao -> IDENTIFICADOR ATRIBUICAO expressao . PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PONTO_E_VIRGULA shift and go to state 54
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 36
+
+    (8) expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos . PARENTESES_DIR
+    (14) argumentos -> argumentos . VIRGULA expressao
+
+    PARENTESES_DIR  shift and go to state 55
+    VIRGULA         shift and go to state 56
+
+
+state 37
+
+    (15) argumentos -> expressao .
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  reduce using rule 15 (argumentos -> expressao .)
+    VIRGULA         reduce using rule 15 (argumentos -> expressao .)
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 38
+
+    (22) expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 22 (expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 22 (expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .)
+    OPERADOR_CONCAT reduce using rule 22 (expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .)
+    PARENTESES_DIR  reduce using rule 22 (expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 22 (expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .)
+    VIRGULA         reduce using rule 22 (expressao -> PARENTESES_ESQ expressao PARENTESES_DIR .)
+
+
+state 39
+
+    (20) expressao -> expressao OPERADOR_ARITMETICO expressao .
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+  ! shift/reduce conflict for OPERADOR_ARITMETICO resolved as shift
+  ! shift/reduce conflict for OPERADOR_CONCAT resolved as shift
+    PONTO_E_VIRGULA reduce using rule 20 (expressao -> expressao OPERADOR_ARITMETICO expressao .)
+    PARENTESES_DIR  reduce using rule 20 (expressao -> expressao OPERADOR_ARITMETICO expressao .)
+    COLCHETES_DIR   reduce using rule 20 (expressao -> expressao OPERADOR_ARITMETICO expressao .)
+    VIRGULA         reduce using rule 20 (expressao -> expressao OPERADOR_ARITMETICO expressao .)
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+  ! OPERADOR_ARITMETICO [ reduce using rule 20 (expressao -> expressao OPERADOR_ARITMETICO expressao .) ]
+  ! OPERADOR_CONCAT [ reduce using rule 20 (expressao -> expressao OPERADOR_ARITMETICO expressao .) ]
+
+
+state 40
+
+    (21) expressao -> expressao OPERADOR_CONCAT expressao .
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+  ! shift/reduce conflict for OPERADOR_ARITMETICO resolved as shift
+  ! shift/reduce conflict for OPERADOR_CONCAT resolved as shift
+    PONTO_E_VIRGULA reduce using rule 21 (expressao -> expressao OPERADOR_CONCAT expressao .)
+    PARENTESES_DIR  reduce using rule 21 (expressao -> expressao OPERADOR_CONCAT expressao .)
+    COLCHETES_DIR   reduce using rule 21 (expressao -> expressao OPERADOR_CONCAT expressao .)
+    VIRGULA         reduce using rule 21 (expressao -> expressao OPERADOR_CONCAT expressao .)
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+  ! OPERADOR_ARITMETICO [ reduce using rule 21 (expressao -> expressao OPERADOR_CONCAT expressao .) ]
+  ! OPERADOR_CONCAT [ reduce using rule 21 (expressao -> expressao OPERADOR_CONCAT expressao .) ]
+
+
+state 41
+
+    (18) instrucao -> ESCREVER PARENTESES_ESQ expressao . PARENTESES_DIR PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  shift and go to state 57
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 42
+
+    (27) expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 27 (expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 27 (expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+    OPERADOR_CONCAT reduce using rule 27 (expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+    PARENTESES_DIR  reduce using rule 27 (expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 27 (expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+    VIRGULA         reduce using rule 27 (expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR .)
+
+
+state 43
+
+    (28) expressao -> ALEATORIO PARENTESES_ESQ expressao . PARENTESES_DIR
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  shift and go to state 58
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 44
+
+    (29) expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 29 (expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 29 (expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .)
+    OPERADOR_CONCAT reduce using rule 29 (expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .)
+    PARENTESES_DIR  reduce using rule 29 (expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .)
+    COLCHETES_DIR   reduce using rule 29 (expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .)
+    VIRGULA         reduce using rule 29 (expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR .)
+
+
+state 45
+
+    (31) elementos_lista -> elementos_lista VIRGULA . expressao
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 59
+
+state 46
+
+    (33) expressao -> MAP PARENTESES_ESQ IDENTIFICADOR . VIRGULA expressao PARENTESES_DIR
+
+    VIRGULA         shift and go to state 60
+
+
+state 47
+
+    (34) expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR . VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    VIRGULA         shift and go to state 61
+
+
+state 48
+
+    (12) parametros -> IDENTIFICADOR .
+    (36) padrao_lista -> IDENTIFICADOR . DOIS_PONTOS IDENTIFICADOR
+    (8) expressao -> IDENTIFICADOR . PARENTESES_ESQ argumentos PARENTESES_DIR
+    (24) expressao -> IDENTIFICADOR .
+
+  ! reduce/reduce conflict for PARENTESES_DIR resolved using rule 12 (parametros -> IDENTIFICADOR .)
+    PARENTESES_DIR  reduce using rule 12 (parametros -> IDENTIFICADOR .)
+    VIRGULA         reduce using rule 12 (parametros -> IDENTIFICADOR .)
+    DOIS_PONTOS     shift and go to state 62
+    PARENTESES_ESQ  shift and go to state 20
+    OPERADOR_ARITMETICO reduce using rule 24 (expressao -> IDENTIFICADOR .)
+    OPERADOR_CONCAT reduce using rule 24 (expressao -> IDENTIFICADOR .)
+
+  ! PARENTESES_DIR  [ reduce using rule 24 (expressao -> IDENTIFICADOR .) ]
+
+
+state 49
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros . PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros . PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (11) parametros -> parametros . VIRGULA IDENTIFICADOR
+
+    PARENTESES_DIR  shift and go to state 63
+    VIRGULA         shift and go to state 64
+
+
+state 50
+
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao . PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  shift and go to state 65
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 51
+
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista . PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (7) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista . PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+
+    PARENTESES_DIR  shift and go to state 66
+
+
+state 52
+
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO . PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (23) expressao -> NUMERO .
+
+  ! shift/reduce conflict for PARENTESES_DIR resolved as shift
+    PARENTESES_DIR  shift and go to state 67
+    OPERADOR_ARITMETICO reduce using rule 23 (expressao -> NUMERO .)
+    OPERADOR_CONCAT reduce using rule 23 (expressao -> NUMERO .)
+
+  ! PARENTESES_DIR  [ reduce using rule 23 (expressao -> NUMERO .) ]
+
+
+state 53
+
+    (35) padrao_lista -> COLCHETES_ESQ . COLCHETES_DIR
+    (29) expressao -> COLCHETES_ESQ . elementos_lista COLCHETES_DIR
+    (30) expressao -> COLCHETES_ESQ . COLCHETES_DIR
+    (31) elementos_lista -> . elementos_lista VIRGULA expressao
+    (32) elementos_lista -> . expressao
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    COLCHETES_DIR   shift and go to state 68
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    elementos_lista                shift and go to state 29
+    expressao                      shift and go to state 31
+
+state 54
+
+    (19) instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .
+
+    FUNCAO          reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    STRING          reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    MAP             reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    $end            reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+    FIM             reduce using rule 19 (instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA .)
+
+
+state 55
+
+    (8) expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 8 (expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 8 (expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .)
+    OPERADOR_CONCAT reduce using rule 8 (expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .)
+    PARENTESES_DIR  reduce using rule 8 (expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 8 (expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .)
+    VIRGULA         reduce using rule 8 (expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR .)
+
+
+state 56
+
+    (14) argumentos -> argumentos VIRGULA . expressao
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 69
+
+state 57
+
+    (18) instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR . PONTO_E_VIRGULA
+
+    PONTO_E_VIRGULA shift and go to state 70
+
+
+state 58
+
+    (28) expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 28 (expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 28 (expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .)
+    OPERADOR_CONCAT reduce using rule 28 (expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .)
+    PARENTESES_DIR  reduce using rule 28 (expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 28 (expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .)
+    VIRGULA         reduce using rule 28 (expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR .)
+
+
+state 59
+
+    (31) elementos_lista -> elementos_lista VIRGULA expressao .
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    COLCHETES_DIR   reduce using rule 31 (elementos_lista -> elementos_lista VIRGULA expressao .)
+    VIRGULA         reduce using rule 31 (elementos_lista -> elementos_lista VIRGULA expressao .)
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 60
+
+    (33) expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA . expressao PARENTESES_DIR
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 71
+
+state 61
+
+    (34) expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA . expressao VIRGULA expressao PARENTESES_DIR
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 72
+
+state 62
+
+    (36) padrao_lista -> IDENTIFICADOR DOIS_PONTOS . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 73
+
+
+state 63
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR . VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR . DOIS_PONTOS lista_instrucoes FIM
+
+    VIRGULA         shift and go to state 74
+    DOIS_PONTOS     shift and go to state 75
+
+
+state 64
+
+    (11) parametros -> parametros VIRGULA . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 76
+
+
+state 65
+
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR . VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+
+    VIRGULA         shift and go to state 77
+
+
+state 66
+
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR . VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (7) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR . DOIS_PONTOS lista_instrucoes FIM
+
+    VIRGULA         shift and go to state 78
+    DOIS_PONTOS     shift and go to state 79
+
+
+state 67
+
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR . VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+
+    VIRGULA         shift and go to state 80
+
+
+state 68
+
+    (35) padrao_lista -> COLCHETES_ESQ COLCHETES_DIR .
+    (30) expressao -> COLCHETES_ESQ COLCHETES_DIR .
+
+  ! reduce/reduce conflict for PARENTESES_DIR resolved using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    PARENTESES_DIR  reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+    OPERADOR_CONCAT reduce using rule 30 (expressao -> COLCHETES_ESQ COLCHETES_DIR .)
+
+  ! PARENTESES_DIR  [ reduce using rule 35 (padrao_lista -> COLCHETES_ESQ COLCHETES_DIR .) ]
+
+
+state 69
+
+    (14) argumentos -> argumentos VIRGULA expressao .
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  reduce using rule 14 (argumentos -> argumentos VIRGULA expressao .)
+    VIRGULA         reduce using rule 14 (argumentos -> argumentos VIRGULA expressao .)
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 70
+
+    (18) instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .
+
+    FUNCAO          reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    STRING          reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    MAP             reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    $end            reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+    FIM             reduce using rule 18 (instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA .)
+
+
+state 71
+
+    (33) expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao . PARENTESES_DIR
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  shift and go to state 81
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 72
+
+    (34) expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao . VIRGULA expressao PARENTESES_DIR
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    VIRGULA         shift and go to state 82
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 73
+
+    (36) padrao_lista -> IDENTIFICADOR DOIS_PONTOS IDENTIFICADOR .
+
+    PARENTESES_DIR  reduce using rule 36 (padrao_lista -> IDENTIFICADOR DOIS_PONTOS IDENTIFICADOR .)
+
+
+state 74
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA . DOIS_PONTOS expressao PONTO_E_VIRGULA
+
+    DOIS_PONTOS     shift and go to state 83
+
+
+state 75
+
+    (6) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS . lista_instrucoes FIM
+    (2) lista_instrucoes -> . instrucao
+    (3) lista_instrucoes -> . lista_instrucoes instrucao
+    (4) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (17) instrucao -> . expressao PONTO_E_VIRGULA
+    (18) instrucao -> . ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (19) instrucao -> . IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    FUNCAO          shift and go to state 4
+    ESCREVER        shift and go to state 9
+    IDENTIFICADOR   shift and go to state 5
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    lista_instrucoes               shift and go to state 84
+    instrucao                      shift and go to state 3
+    expressao                      shift and go to state 7
+
+state 76
+
+    (11) parametros -> parametros VIRGULA IDENTIFICADOR .
+
+    PARENTESES_DIR  reduce using rule 11 (parametros -> parametros VIRGULA IDENTIFICADOR .)
+    VIRGULA         reduce using rule 11 (parametros -> parametros VIRGULA IDENTIFICADOR .)
+
+
+state 77
+
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA . DOIS_PONTOS expressao PONTO_E_VIRGULA
+
+    DOIS_PONTOS     shift and go to state 85
+
+
+state 78
+
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA . DOIS_PONTOS expressao PONTO_E_VIRGULA
+
+    DOIS_PONTOS     shift and go to state 86
+
+
+state 79
+
+    (7) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS . lista_instrucoes FIM
+    (2) lista_instrucoes -> . instrucao
+    (3) lista_instrucoes -> . lista_instrucoes instrucao
+    (4) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (17) instrucao -> . expressao PONTO_E_VIRGULA
+    (18) instrucao -> . ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (19) instrucao -> . IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    FUNCAO          shift and go to state 4
+    ESCREVER        shift and go to state 9
+    IDENTIFICADOR   shift and go to state 5
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    lista_instrucoes               shift and go to state 87
+    instrucao                      shift and go to state 3
+    expressao                      shift and go to state 7
+
+state 80
+
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA . DOIS_PONTOS expressao PONTO_E_VIRGULA
+
+    DOIS_PONTOS     shift and go to state 88
+
+
+state 81
+
+    (33) expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 33 (expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 33 (expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .)
+    OPERADOR_CONCAT reduce using rule 33 (expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .)
+    PARENTESES_DIR  reduce using rule 33 (expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 33 (expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .)
+    VIRGULA         reduce using rule 33 (expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR .)
+
+
+state 82
+
+    (34) expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA . expressao PARENTESES_DIR
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 89
+
+state 83
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS . expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 90
+
+state 84
+
+    (6) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes . FIM
+    (3) lista_instrucoes -> lista_instrucoes . instrucao
+    (4) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (17) instrucao -> . expressao PONTO_E_VIRGULA
+    (18) instrucao -> . ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (19) instrucao -> . IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    FIM             shift and go to state 91
+    FUNCAO          shift and go to state 4
+    ESCREVER        shift and go to state 9
+    IDENTIFICADOR   shift and go to state 5
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    instrucao                      shift and go to state 17
+    expressao                      shift and go to state 7
+
+state 85
+
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS . expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 92
+
+state 86
+
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS . expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 93
+
+state 87
+
+    (7) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes . FIM
+    (3) lista_instrucoes -> lista_instrucoes . instrucao
+    (4) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (5) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (6) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (7) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM
+    (9) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (10) instrucao -> . FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA
+    (17) instrucao -> . expressao PONTO_E_VIRGULA
+    (18) instrucao -> . ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA
+    (19) instrucao -> . IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    FIM             shift and go to state 94
+    FUNCAO          shift and go to state 4
+    ESCREVER        shift and go to state 9
+    IDENTIFICADOR   shift and go to state 5
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    instrucao                      shift and go to state 17
+    expressao                      shift and go to state 7
+
+state 88
+
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS . expressao PONTO_E_VIRGULA
+    (8) expressao -> . IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR
+    (20) expressao -> . expressao OPERADOR_ARITMETICO expressao
+    (21) expressao -> . expressao OPERADOR_CONCAT expressao
+    (22) expressao -> . PARENTESES_ESQ expressao PARENTESES_DIR
+    (23) expressao -> . NUMERO
+    (24) expressao -> . IDENTIFICADOR
+    (25) expressao -> . STRING
+    (26) expressao -> . INTERPOLATED_STRING
+    (27) expressao -> . ENTRADA PARENTESES_ESQ PARENTESES_DIR
+    (28) expressao -> . ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR
+    (29) expressao -> . COLCHETES_ESQ elementos_lista COLCHETES_DIR
+    (30) expressao -> . COLCHETES_ESQ COLCHETES_DIR
+    (33) expressao -> . MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR
+    (34) expressao -> . FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR
+
+    IDENTIFICADOR   shift and go to state 22
+    PARENTESES_ESQ  shift and go to state 6
+    NUMERO          shift and go to state 8
+    STRING          shift and go to state 10
+    INTERPOLATED_STRING shift and go to state 11
+    ENTRADA         shift and go to state 12
+    ALEATORIO       shift and go to state 13
+    COLCHETES_ESQ   shift and go to state 14
+    MAP             shift and go to state 15
+    FOLD            shift and go to state 16
+
+    expressao                      shift and go to state 95
+
+state 89
+
+    (34) expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao . PARENTESES_DIR
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PARENTESES_DIR  shift and go to state 96
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 90
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao . PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PONTO_E_VIRGULA shift and go to state 97
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 91
+
+    (6) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .
+
+    FUNCAO          reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    ESCREVER        reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    IDENTIFICADOR   reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    PARENTESES_ESQ  reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    NUMERO          reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    STRING          reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    INTERPOLATED_STRING reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    ENTRADA         reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    ALEATORIO       reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    COLCHETES_ESQ   reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    MAP             reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    FOLD            reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    $end            reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    FIM             reduce using rule 6 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+
+
+state 92
+
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao . PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PONTO_E_VIRGULA shift and go to state 98
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 93
+
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao . PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PONTO_E_VIRGULA shift and go to state 99
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 94
+
+    (7) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .
+
+    FUNCAO          reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    ESCREVER        reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    IDENTIFICADOR   reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    PARENTESES_ESQ  reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    NUMERO          reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    STRING          reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    INTERPOLATED_STRING reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    ENTRADA         reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    ALEATORIO       reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    COLCHETES_ESQ   reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    MAP             reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    FOLD            reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    $end            reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+    FIM             reduce using rule 7 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM .)
+
+
+state 95
+
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao . PONTO_E_VIRGULA
+    (20) expressao -> expressao . OPERADOR_ARITMETICO expressao
+    (21) expressao -> expressao . OPERADOR_CONCAT expressao
+
+    PONTO_E_VIRGULA shift and go to state 100
+    OPERADOR_ARITMETICO shift and go to state 24
+    OPERADOR_CONCAT shift and go to state 25
+
+
+state 96
+
+    (34) expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .
+
+    PONTO_E_VIRGULA reduce using rule 34 (expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .)
+    OPERADOR_ARITMETICO reduce using rule 34 (expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .)
+    OPERADOR_CONCAT reduce using rule 34 (expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .)
+    PARENTESES_DIR  reduce using rule 34 (expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .)
+    COLCHETES_DIR   reduce using rule 34 (expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .)
+    VIRGULA         reduce using rule 34 (expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR .)
+
+
+state 97
+
+    (4) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .
+
+    FUNCAO          reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    STRING          reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    MAP             reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    $end            reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FIM             reduce using rule 4 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+
+
+state 98
+
+    (9) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .
+
+    FUNCAO          reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    STRING          reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    MAP             reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    $end            reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FIM             reduce using rule 9 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+
+
+state 99
+
+    (5) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .
+
+    FUNCAO          reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    STRING          reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    MAP             reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    $end            reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FIM             reduce using rule 5 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+
+
+state 100
+
+    (10) instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .
+
+    FUNCAO          reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ESCREVER        reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    IDENTIFICADOR   reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    PARENTESES_ESQ  reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    NUMERO          reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    STRING          reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    INTERPOLATED_STRING reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ENTRADA         reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    ALEATORIO       reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    COLCHETES_ESQ   reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    MAP             reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FOLD            reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    $end            reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+    FIM             reduce using rule 10 (instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for OPERADOR_ARITMETICO in state 39 resolved as shift
+WARNING: shift/reduce conflict for OPERADOR_CONCAT in state 39 resolved as shift
+WARNING: shift/reduce conflict for OPERADOR_ARITMETICO in state 40 resolved as shift
+WARNING: shift/reduce conflict for OPERADOR_CONCAT in state 40 resolved as shift
+WARNING: shift/reduce conflict for PARENTESES_DIR in state 52 resolved as shift
+WARNING: reduce/reduce conflict in state 48 resolved using rule (parametros -> IDENTIFICADOR)
+WARNING: rejected rule (expressao -> IDENTIFICADOR) in state 48
+WARNING: reduce/reduce conflict in state 68 resolved using rule (expressao -> COLCHETES_ESQ COLCHETES_DIR)
+WARNING: rejected rule (padrao_lista -> COLCHETES_ESQ COLCHETES_DIR) in state 68
+WARNING: Rule (padrao_lista -> COLCHETES_ESQ COLCHETES_DIR) is never reduced

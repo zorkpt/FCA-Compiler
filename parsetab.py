@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftOPERADOR_CONCATleftOPERADOR_ARITMETICOleftOPERADOR_LOGICOALEATORIO ATRIBUICAO COLCHETES_DIR COLCHETES_ESQ DOIS_PONTOS ENTRADA ESCREVER FIM FUNCAO IDENTIFICADOR INTERPOLATED_STRING NUMERO OPERADOR_ARITMETICO OPERADOR_CONCAT OPERADOR_LOGICO PARENTESES_DIR PARENTESES_ESQ PONTO_E_VIRGULA STRING VIRGULAprogram : statementsstatements : statements statementstatements : statementstatement : ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULAstatement : IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULAexpression : expression OPERADOR_ARITMETICO expressionexpression : expression OPERADOR_CONCAT expressionexpression : PARENTESES_ESQ expression PARENTESES_DIRexpression : NUMEROexpression : IDENTIFICADORexpression : STRINGexpression : INTERPOLATED_STRINGexpression : ENTRADA PARENTESES_ESQ PARENTESES_DIRexpression : ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR'
+_lr_signature = 'ALEATORIO ATRIBUICAO COLCHETES_DIR COLCHETES_ESQ DOIS_PONTOS ENTRADA ESCREVER FIM FOLD FUNCAO IDENTIFICADOR INTERPOLATED_STRING MAP NUMERO OPERADOR_ARITMETICO OPERADOR_CONCAT OPERADOR_LOGICO PARENTESES_DIR PARENTESES_ESQ PONTO_E_VIRGULA STRING VIRGULAprograma : lista_instrucoeslista_instrucoes : instrucao\n                        | lista_instrucoes instrucaoinstrucao : FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULAinstrucao : FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULAinstrucao : FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIMinstrucao : FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIMexpressao : IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIRinstrucao : FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA\n                 | FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULAparametros : parametros VIRGULA IDENTIFICADOR\n                  | IDENTIFICADOR\n                  | argumentos : argumentos VIRGULA expressao\n                  | expressao\n                  | instrucao : expressao PONTO_E_VIRGULAinstrucao : ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULAinstrucao : IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULAexpressao : expressao OPERADOR_ARITMETICO expressao\n                 | expressao OPERADOR_CONCAT expressaoexpressao : PARENTESES_ESQ expressao PARENTESES_DIRexpressao : NUMEROexpressao : IDENTIFICADORexpressao : STRINGexpressao : INTERPOLATED_STRINGexpressao : ENTRADA PARENTESES_ESQ PARENTESES_DIRexpressao : ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIRexpressao : COLCHETES_ESQ elementos_lista COLCHETES_DIR\n                 | COLCHETES_ESQ COLCHETES_DIRelementos_lista : elementos_lista VIRGULA expressao\n                       | expressaoexpressao : MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIRexpressao : FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIRpadrao_lista : COLCHETES_ESQ COLCHETES_DIRpadrao_lista : IDENTIFICADOR DOIS_PONTOS IDENTIFICADOR'
     
-_lr_action_items = {'ESCREVER':([0,2,3,6,24,26,],[4,4,-3,-2,-5,-4,]),'IDENTIFICADOR':([0,2,3,6,7,8,9,20,21,23,24,26,],[5,5,-3,-2,12,12,12,12,12,12,-5,-4,]),'$end':([1,2,3,6,24,26,],[0,-1,-3,-2,-5,-4,]),'PARENTESES_ESQ':([4,7,8,9,15,16,20,21,23,],[7,9,9,9,22,23,9,9,9,]),'ATRIBUICAO':([5,],[8,]),'NUMERO':([7,8,9,20,21,23,],[11,11,11,11,11,11,]),'STRING':([7,8,9,20,21,23,],[13,13,13,13,13,13,]),'INTERPOLATED_STRING':([7,8,9,20,21,23,],[14,14,14,14,14,14,]),'ENTRADA':([7,8,9,20,21,23,],[15,15,15,15,15,15,]),'ALEATORIO':([7,8,9,20,21,23,],[16,16,16,16,16,16,]),'PARENTESES_DIR':([10,11,12,13,14,18,22,25,27,28,29,30,31,],[19,-9,-10,-11,-12,25,29,-8,-6,-7,-13,31,-14,]),'OPERADOR_ARITMETICO':([10,11,12,13,14,17,18,25,27,28,29,30,31,],[20,-9,-10,-11,-12,20,20,-8,-6,20,-13,20,-14,]),'OPERADOR_CONCAT':([10,11,12,13,14,17,18,25,27,28,29,30,31,],[21,-9,-10,-11,-12,21,21,-8,-6,-7,-13,21,-14,]),'PONTO_E_VIRGULA':([11,12,13,14,17,19,25,27,28,29,31,],[-9,-10,-11,-12,24,26,-8,-6,-7,-13,-14,]),}
+_lr_action_items = {'FUNCAO':([0,2,3,17,23,54,70,75,79,84,87,91,94,97,98,99,100,],[4,4,-2,-3,-17,-19,-18,4,4,4,4,-6,-7,-4,-9,-5,-10,]),'ESCREVER':([0,2,3,17,23,54,70,75,79,84,87,91,94,97,98,99,100,],[9,9,-2,-3,-17,-19,-18,9,9,9,9,-6,-7,-4,-9,-5,-10,]),'IDENTIFICADOR':([0,2,3,4,6,14,17,19,20,23,24,25,26,28,32,33,34,45,53,54,56,60,61,62,64,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[5,5,-2,18,22,22,-3,22,22,-17,22,22,22,22,46,47,48,22,22,-19,22,22,22,73,76,-18,5,5,22,22,5,22,22,5,22,-6,-7,-4,-9,-5,-10,]),'PARENTESES_ESQ':([0,2,3,5,6,9,12,13,14,15,16,17,18,19,20,22,23,24,25,26,28,34,45,48,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[6,6,-2,20,6,26,27,28,6,32,33,-3,34,6,6,20,-17,6,6,6,6,6,6,20,6,-19,6,6,6,-18,6,6,6,6,6,6,6,6,6,-6,-7,-4,-9,-5,-10,]),'NUMERO':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[8,8,-2,8,8,-3,8,8,-17,8,8,8,8,52,8,8,-19,8,8,8,-18,8,8,8,8,8,8,8,8,8,-6,-7,-4,-9,-5,-10,]),'STRING':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[10,10,-2,10,10,-3,10,10,-17,10,10,10,10,10,10,10,-19,10,10,10,-18,10,10,10,10,10,10,10,10,10,-6,-7,-4,-9,-5,-10,]),'INTERPOLATED_STRING':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[11,11,-2,11,11,-3,11,11,-17,11,11,11,11,11,11,11,-19,11,11,11,-18,11,11,11,11,11,11,11,11,11,-6,-7,-4,-9,-5,-10,]),'ENTRADA':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[12,12,-2,12,12,-3,12,12,-17,12,12,12,12,12,12,12,-19,12,12,12,-18,12,12,12,12,12,12,12,12,12,-6,-7,-4,-9,-5,-10,]),'ALEATORIO':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[13,13,-2,13,13,-3,13,13,-17,13,13,13,13,13,13,13,-19,13,13,13,-18,13,13,13,13,13,13,13,13,13,-6,-7,-4,-9,-5,-10,]),'COLCHETES_ESQ':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[14,14,-2,14,14,-3,14,14,-17,14,14,14,14,53,14,14,-19,14,14,14,-18,14,14,14,14,14,14,14,14,14,-6,-7,-4,-9,-5,-10,]),'MAP':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[15,15,-2,15,15,-3,15,15,-17,15,15,15,15,15,15,15,-19,15,15,15,-18,15,15,15,15,15,15,15,15,15,-6,-7,-4,-9,-5,-10,]),'FOLD':([0,2,3,6,14,17,19,20,23,24,25,26,28,34,45,53,54,56,60,61,70,75,79,82,83,84,85,86,87,88,91,94,97,98,99,100,],[16,16,-2,16,16,-3,16,16,-17,16,16,16,16,16,16,16,-19,16,16,16,-18,16,16,16,16,16,16,16,16,16,-6,-7,-4,-9,-5,-10,]),'$end':([1,2,3,17,23,54,70,91,94,97,98,99,100,],[0,-1,-2,-3,-17,-19,-18,-6,-7,-4,-9,-5,-10,]),'FIM':([3,17,23,54,70,84,87,91,94,97,98,99,100,],[-2,-3,-17,-19,-18,91,94,-6,-7,-4,-9,-5,-10,]),'ATRIBUICAO':([5,],[19,]),'PONTO_E_VIRGULA':([5,7,8,10,11,22,30,35,38,39,40,42,44,55,57,58,81,90,92,93,95,96,],[-24,23,-23,-25,-26,-24,-30,54,-22,-20,-21,-27,-29,-8,70,-28,-33,97,98,99,100,-34,]),'OPERADOR_ARITMETICO':([5,7,8,10,11,21,22,30,31,35,37,38,39,40,41,42,43,44,48,50,52,55,58,59,68,69,71,72,81,89,90,92,93,95,96,],[-24,24,-23,-25,-26,24,-24,-30,24,24,24,-22,24,24,24,-27,24,-29,-24,24,-23,-8,-28,24,-30,24,24,24,-33,24,24,24,24,24,-34,]),'OPERADOR_CONCAT':([5,7,8,10,11,21,22,30,31,35,37,38,39,40,41,42,43,44,48,50,52,55,58,59,68,69,71,72,81,89,90,92,93,95,96,],[-24,25,-23,-25,-26,25,-24,-30,25,25,25,-22,25,25,25,-27,25,-29,-24,25,-23,-8,-28,25,-30,25,25,25,-33,25,25,25,25,25,-34,]),'PARENTESES_DIR':([8,10,11,20,21,22,27,30,34,36,37,38,39,40,41,42,43,44,48,49,50,51,52,55,58,68,69,71,73,76,81,89,96,],[-23,-25,-26,-16,38,-24,42,-30,-13,55,-15,-22,-20,-21,57,-27,58,-29,-12,63,65,66,67,-8,-28,-30,-14,81,-36,-11,-33,96,-34,]),'COLCHETES_DIR':([8,10,11,14,22,29,30,31,38,39,40,42,44,53,55,58,59,81,96,],[-23,-25,-26,30,-24,44,-30,-32,-22,-20,-21,-27,-29,68,-8,-28,-31,-33,-34,]),'VIRGULA':([8,10,11,20,22,29,30,31,34,36,37,38,39,40,42,44,46,47,48,49,55,58,59,63,65,66,67,69,72,76,81,96,],[-23,-25,-26,-16,-24,45,-30,-32,-13,56,-15,-22,-20,-21,-27,-29,60,61,-12,64,-8,-28,-31,74,77,78,80,-14,82,-11,-33,-34,]),'DOIS_PONTOS':([48,63,66,74,77,78,80,],[62,75,79,83,85,86,88,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'statements':([0,],[2,]),'statement':([0,2,],[3,6,]),'expression':([7,8,9,20,21,23,],[10,17,18,27,28,30,]),}
+_lr_goto_items = {'programa':([0,],[1,]),'lista_instrucoes':([0,75,79,],[2,84,87,]),'instrucao':([0,2,75,79,84,87,],[3,17,3,3,17,17,]),'expressao':([0,2,6,14,19,20,24,25,26,28,34,45,53,56,60,61,75,79,82,83,84,85,86,87,88,],[7,7,21,31,35,37,39,40,41,43,50,59,31,69,71,72,7,7,89,90,7,92,93,7,95,]),'elementos_lista':([14,53,],[29,29,]),'argumentos':([20,],[36,]),'parametros':([34,],[49,]),'padrao_lista':([34,],[51,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,19 +26,41 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> program","S'",1,None,None,None),
-  ('program -> statements','program',1,'p_program','main.py',197),
-  ('statements -> statements statement','statements',2,'p_statements_multiple','main.py',201),
-  ('statements -> statement','statements',1,'p_statements_single','main.py',205),
-  ('statement -> ESCREVER PARENTESES_ESQ expression PARENTESES_DIR PONTO_E_VIRGULA','statement',5,'p_statement_escrever','main.py',209),
-  ('statement -> IDENTIFICADOR ATRIBUICAO expression PONTO_E_VIRGULA','statement',4,'p_statement_atribuicao','main.py',213),
-  ('expression -> expression OPERADOR_ARITMETICO expression','expression',3,'p_expression_binop','main.py',217),
-  ('expression -> expression OPERADOR_CONCAT expression','expression',3,'p_expression_concat','main.py',221),
-  ('expression -> PARENTESES_ESQ expression PARENTESES_DIR','expression',3,'p_expression_group','main.py',225),
-  ('expression -> NUMERO','expression',1,'p_expression_number','main.py',229),
-  ('expression -> IDENTIFICADOR','expression',1,'p_expression_identificador','main.py',233),
-  ('expression -> STRING','expression',1,'p_expression_string','main.py',237),
-  ('expression -> INTERPOLATED_STRING','expression',1,'p_expression_interpolated_string','main.py',241),
-  ('expression -> ENTRADA PARENTESES_ESQ PARENTESES_DIR','expression',3,'p_expression_input','main.py',264),
-  ('expression -> ALEATORIO PARENTESES_ESQ expression PARENTESES_DIR','expression',4,'p_expression_random','main.py',268),
+  ("S' -> programa","S'",1,None,None,None),
+  ('programa -> lista_instrucoes','programa',1,'p_programa','parser.py',9),
+  ('lista_instrucoes -> instrucao','lista_instrucoes',1,'p_lista_instrucoes','parser.py',16),
+  ('lista_instrucoes -> lista_instrucoes instrucao','lista_instrucoes',2,'p_lista_instrucoes','parser.py',17),
+  ('instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA','instrucao',9,'p_instrucao_funcao_inline','parser.py',29),
+  ('instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA','instrucao',9,'p_instrucao_funcao_padrao_lista_inline','parser.py',39),
+  ('instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ parametros PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM','instrucao',8,'p_instrucao_funcao_multilinhas','parser.py',52),
+  ('instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ padrao_lista PARENTESES_DIR DOIS_PONTOS lista_instrucoes FIM','instrucao',8,'p_instrucao_funcao_padrao_lista_multilinhas','parser.py',68),
+  ('expressao -> IDENTIFICADOR PARENTESES_ESQ argumentos PARENTESES_DIR','expressao',4,'p_expressao_chamada_funcao','parser.py',81),
+  ('instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ expressao PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA','instrucao',9,'p_instrucao_funcao_ramo','parser.py',90),
+  ('instrucao -> FUNCAO IDENTIFICADOR PARENTESES_ESQ NUMERO PARENTESES_DIR VIRGULA DOIS_PONTOS expressao PONTO_E_VIRGULA','instrucao',9,'p_instrucao_funcao_ramo','parser.py',91),
+  ('parametros -> parametros VIRGULA IDENTIFICADOR','parametros',3,'p_parametros','parser.py',111),
+  ('parametros -> IDENTIFICADOR','parametros',1,'p_parametros','parser.py',112),
+  ('parametros -> <empty>','parametros',0,'p_parametros','parser.py',113),
+  ('argumentos -> argumentos VIRGULA expressao','argumentos',3,'p_argumentos','parser.py',137),
+  ('argumentos -> expressao','argumentos',1,'p_argumentos','parser.py',138),
+  ('argumentos -> <empty>','argumentos',0,'p_argumentos','parser.py',139),
+  ('instrucao -> expressao PONTO_E_VIRGULA','instrucao',2,'p_instrucao_expressao','parser.py',158),
+  ('instrucao -> ESCREVER PARENTESES_ESQ expressao PARENTESES_DIR PONTO_E_VIRGULA','instrucao',5,'p_instrucao_escrever','parser.py',166),
+  ('instrucao -> IDENTIFICADOR ATRIBUICAO expressao PONTO_E_VIRGULA','instrucao',4,'p_instrucao_atribuicao','parser.py',174),
+  ('expressao -> expressao OPERADOR_ARITMETICO expressao','expressao',3,'p_expressao_binop','parser.py',183),
+  ('expressao -> expressao OPERADOR_CONCAT expressao','expressao',3,'p_expressao_binop','parser.py',184),
+  ('expressao -> PARENTESES_ESQ expressao PARENTESES_DIR','expressao',3,'p_expressao_grupo','parser.py',203),
+  ('expressao -> NUMERO','expressao',1,'p_expressao_numero','parser.py',210),
+  ('expressao -> IDENTIFICADOR','expressao',1,'p_expressao_identificador','parser.py',217),
+  ('expressao -> STRING','expressao',1,'p_expressao_string','parser.py',224),
+  ('expressao -> INTERPOLATED_STRING','expressao',1,'p_expressao_string_interpolada','parser.py',231),
+  ('expressao -> ENTRADA PARENTESES_ESQ PARENTESES_DIR','expressao',3,'p_expressao_entrada','parser.py',263),
+  ('expressao -> ALEATORIO PARENTESES_ESQ expressao PARENTESES_DIR','expressao',4,'p_expressao_aleatorio','parser.py',270),
+  ('expressao -> COLCHETES_ESQ elementos_lista COLCHETES_DIR','expressao',3,'p_expressao_lista','parser.py',283),
+  ('expressao -> COLCHETES_ESQ COLCHETES_DIR','expressao',2,'p_expressao_lista','parser.py',284),
+  ('elementos_lista -> elementos_lista VIRGULA expressao','elementos_lista',3,'p_elementos_lista','parser.py',294),
+  ('elementos_lista -> expressao','elementos_lista',1,'p_elementos_lista','parser.py',295),
+  ('expressao -> MAP PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao PARENTESES_DIR','expressao',6,'p_expressao_map','parser.py',305),
+  ('expressao -> FOLD PARENTESES_ESQ IDENTIFICADOR VIRGULA expressao VIRGULA expressao PARENTESES_DIR','expressao',8,'p_expressao_fold','parser.py',312),
+  ('padrao_lista -> COLCHETES_ESQ COLCHETES_DIR','padrao_lista',2,'p_padroes_lista_vazia','parser.py',319),
+  ('padrao_lista -> IDENTIFICADOR DOIS_PONTOS IDENTIFICADOR','padrao_lista',3,'p_padrao_lista_cabeca_cauda','parser.py',326),
 ]

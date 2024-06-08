@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-# Caminho do diretório onde estão os arquivos .fca
+# dir onde estão os arquivos .fca
 input_dir = './exemplos'
 output_dir = './outputs'
 
@@ -12,10 +12,10 @@ if not os.path.exists(output_dir):
 # Encontra todos os arquivos .fca no diretório especificado
 input_files = [f for f in os.listdir(input_dir) if f.endswith('.fca')]
 
-# Caminho do seu programa principal
 main_script = 'main.py'
 
-# Função para rodar um teste
+
+# Função para correr um teste
 def run_test(input_file):
     input_path = os.path.join(input_dir, input_file)
     output_file = input_file.replace('.fca', '.txt')
@@ -25,9 +25,10 @@ def run_test(input_file):
     with open(output_path, 'w') as outfile:
         subprocess.run(['python3', main_script, input_path], stdout=outfile)
 
-# Roda os testes para todos os arquivos .fca
+
+# corre os testes para todos os files .fca
 for input_file in input_files:
     run_test(input_file)
-    print(f'Teste executado para {input_file}, veja o resultado em {output_dir}/{input_file.replace(".fca", ".txt")}')
+    print(f'Teste executado para {input_file}, ver o resultado em {output_dir}/{input_file.replace(".fca", ".txt")}')
 
 print('Todos os testes foram executados.')
